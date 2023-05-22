@@ -39,6 +39,7 @@
 		AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */; };
 		AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */; };
 		AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */; };
+		AEA160C32A1B67AB006E7FF5 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C22A1B67AB006E7FF5 /* ItemList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,16 @@
 		AEA1608B2A1B0A42006E7FF5 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		AEA1608D2A1B0B8F006E7FF5 /* ProductForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductForm.swift; sourceTree = "<group>"; };
 		AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		AEA160932A1B0D91006E7FF5 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
+		AEA160992A1B4B92006E7FF5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemForm.swift; sourceTree = "<group>"; };
+		AEA160AF2A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDAO+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AEA160B02A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDAO+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
+		AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManageable.swift; sourceTree = "<group>"; };
+		AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		AEA160C22A1B67AB006E7FF5 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +115,7 @@
 				AEA160872A1B09F2006E7FF5 /* Domain */,
 				AEA160852A1AFC57006E7FF5 /* Presentation */,
 				AEA160862A1AFC7A006E7FF5 /* Resource */,
-				AEA1605A2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld */,
+				AEA160B32A1B5AF2006E7FF5 /* Util */,
 			);
 			path = OpenMarket;
 			sourceTree = "<group>";
@@ -140,6 +151,7 @@
 		AEA160872A1B09F2006E7FF5 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				AEA160912A1B0CDD006E7FF5 /* Interfaces */,
 				AEA160882A1B0A00006E7FF5 /* Entities */,
 			);
 			path = Domain;
@@ -148,6 +160,7 @@
 		AEA160882A1B0A00006E7FF5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AEA160C22A1B67AB006E7FF5 /* ItemList.swift */,
 				AEA160992A1B4B92006E7FF5 /* Item.swift */,
 				AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */,
 			);
@@ -356,6 +369,7 @@
 				AEA160B22A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift in Sources */,
 				AEA1608C2A1B0A42006E7FF5 /* Product.swift in Sources */,
 				AEA1608A2A1B0A2C006E7FF5 /* ProductList.swift in Sources */,
+				AEA160C32A1B67AB006E7FF5 /* ItemList.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
