@@ -30,6 +30,15 @@
 		AEA1608C2A1B0A42006E7FF5 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608B2A1B0A42006E7FF5 /* Product.swift */; };
 		AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608D2A1B0B8F006E7FF5 /* ProductForm.swift */; };
 		AEA160902A1B0BAE006E7FF5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */; };
+		AEA160942A1B0D91006E7FF5 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160932A1B0D91006E7FF5 /* CoreDataRepository.swift */; };
+		AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160992A1B4B92006E7FF5 /* Item.swift */; };
+		AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */; };
+		AEA160B12A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160AF2A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift */; };
+		AEA160B22A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160B02A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift */; };
+		AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */; };
+		AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */; };
+		AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */; };
+		AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				AEA160842A1AFC43006E7FF5 /* App */,
+				AEA160952A1B49A9006E7FF5 /* Data */,
 				AEA160872A1B09F2006E7FF5 /* Domain */,
 				AEA160852A1AFC57006E7FF5 /* Presentation */,
 				AEA160862A1AFC7A006E7FF5 /* Resource */,
@@ -138,10 +148,8 @@
 		AEA160882A1B0A00006E7FF5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				AEA160892A1B0A2C006E7FF5 /* ItemList.swift */,
-				AEA1608B2A1B0A42006E7FF5 /* Item.swift */,
-				AEA1608D2A1B0B8F006E7FF5 /* ItemForm.swift */,
-				AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */,
+				AEA160992A1B4B92006E7FF5 /* Item.swift */,
+				AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -331,14 +339,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEA160942A1B0D91006E7FF5 /* CoreDataRepository.swift in Sources */,
 				AEA160902A1B0BAE006E7FF5 /* Currency.swift in Sources */,
 				AEA160562A1AF0A0006E7FF5 /* ViewController.swift in Sources */,
+				AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */,
+				AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */,
+				AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */,
+				AEA160B12A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
+				AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */,
+				AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
-				AEA1608E2A1B0B8F006E7FF5 /* ItemForm.swift in Sources */,
-				AEA1608C2A1B0A42006E7FF5 /* Item.swift in Sources */,
-				AEA1608A2A1B0A2C006E7FF5 /* ItemList.swift in Sources */,
+				AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */,
+				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,
+				AEA160B22A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift in Sources */,
+				AEA1608C2A1B0A42006E7FF5 /* Product.swift in Sources */,
+				AEA1608A2A1B0A2C006E7FF5 /* ProductList.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
