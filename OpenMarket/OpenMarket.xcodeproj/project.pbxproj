@@ -26,6 +26,10 @@
 		AEA1607E2A1AFA17006E7FF5 /* RxTest-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = AEA1607D2A1AFA17006E7FF5 /* RxTest-Dynamic */; };
 		AEA160812A1AFA77006E7FF5 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = AEA160802A1AFA77006E7FF5 /* Differentiator */; };
 		AEA160832A1AFA77006E7FF5 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = AEA160822A1AFA77006E7FF5 /* RxDataSources */; };
+		AEA1608A2A1B0A2C006E7FF5 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160892A1B0A2C006E7FF5 /* ItemList.swift */; };
+		AEA1608C2A1B0A42006E7FF5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608B2A1B0A42006E7FF5 /* Item.swift */; };
+		AEA1608E2A1B0B8F006E7FF5 /* ItemForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608D2A1B0B8F006E7FF5 /* ItemForm.swift */; };
+		AEA160902A1B0BAE006E7FF5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		AEA160602A1AF0A1006E7FF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEA160622A1AF0A1006E7FF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEA160682A1AF166006E7FF5 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		AEA160892A1B0A2C006E7FF5 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
+		AEA1608B2A1B0A42006E7FF5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		AEA1608D2A1B0B8F006E7FF5 /* ItemForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemForm.swift; sourceTree = "<group>"; };
+		AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,9 +123,27 @@
 				AEA1605D2A1AF0A1006E7FF5 /* Assets.xcassets */,
 				AEA1605F2A1AF0A1006E7FF5 /* LaunchScreen.storyboard */,
 				AEA160622A1AF0A1006E7FF5 /* Info.plist */,
-				AEA1605A2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld */,
 			);
-			path = OpenMarket;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		AEA160872A1B09F2006E7FF5 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				AEA160882A1B0A00006E7FF5 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		AEA160882A1B0A00006E7FF5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				AEA160892A1B0A2C006E7FF5 /* ItemList.swift */,
+				AEA1608B2A1B0A42006E7FF5 /* Item.swift */,
+				AEA1608D2A1B0B8F006E7FF5 /* ItemForm.swift */,
+				AEA1608F2A1B0BAE006E7FF5 /* Currency.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,10 +234,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEA160902A1B0BAE006E7FF5 /* Currency.swift in Sources */,
 				AEA160562A1AF0A0006E7FF5 /* ViewController.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
+				AEA1608E2A1B0B8F006E7FF5 /* ItemForm.swift in Sources */,
+				AEA1608C2A1B0A42006E7FF5 /* Item.swift in Sources */,
+				AEA1608A2A1B0A2C006E7FF5 /* ItemList.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
