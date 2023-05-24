@@ -40,6 +40,12 @@
 		AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */; };
 		AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */; };
 		AEA160C32A1B67AB006E7FF5 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C22A1B67AB006E7FF5 /* ItemList.swift */; };
+		AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C42A1B6A13006E7FF5 /* ItemNetworkManager.swift */; };
+		AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C72A1C4DC7006E7FF5 /* EndPoint.swift */; };
+		AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C92A1C4DED006E7FF5 /* HTTPMethod.swift */; };
+		AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CB2A1C4FE7006E7FF5 /* EndpointStorage.swift */; };
+		AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CD2A1D9A4F006E7FF5 /* NetworkError.swift */; };
+		AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +72,12 @@
 		AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		AEA160C22A1B67AB006E7FF5 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
+		AEA160C42A1B6A13006E7FF5 /* ItemNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemNetworkManager.swift; sourceTree = "<group>"; };
+		AEA160C72A1C4DC7006E7FF5 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		AEA160C92A1C4DED006E7FF5 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		AEA160CB2A1C4FE7006E7FF5 /* EndpointStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointStorage.swift; sourceTree = "<group>"; };
+		AEA160CD2A1D9A4F006E7FF5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +127,7 @@
 				AEA160872A1B09F2006E7FF5 /* Domain */,
 				AEA160852A1AFC57006E7FF5 /* Presentation */,
 				AEA160862A1AFC7A006E7FF5 /* Resource */,
+				AEA160C62A1C4D52006E7FF5 /* Legacy */,
 				AEA160B32A1B5AF2006E7FF5 /* Util */,
 			);
 			path = OpenMarket;
@@ -260,8 +273,21 @@
 		AEA160BB2A1B5DF9006E7FF5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */,
+				AEA160C42A1B6A13006E7FF5 /* ItemNetworkManager.swift */,
+				AEA160CD2A1D9A4F006E7FF5 /* NetworkError.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		AEA160C62A1C4D52006E7FF5 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				AEA160C92A1C4DED006E7FF5 /* HTTPMethod.swift */,
+				AEA160C72A1C4DC7006E7FF5 /* EndPoint.swift */,
+				AEA160CB2A1C4FE7006E7FF5 /* EndpointStorage.swift */,
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,14 +387,20 @@
 				AEA160B12A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
 				AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */,
+				AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */,
 				AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
+				AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */,
+				AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */,
+				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
 				AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */,
 				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,
 				AEA160B22A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift in Sources */,
+				AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */,
 				AEA1608C2A1B0A42006E7FF5 /* Product.swift in Sources */,
 				AEA1608A2A1B0A2C006E7FF5 /* ProductList.swift in Sources */,
+				AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */,
 				AEA160C32A1B67AB006E7FF5 /* ItemList.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
 			);
