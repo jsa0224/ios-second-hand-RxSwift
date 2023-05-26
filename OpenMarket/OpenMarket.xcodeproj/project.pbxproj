@@ -39,7 +39,6 @@
 		AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */; };
 		AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */; };
 		AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */; };
-		AEA160C32A1B67AB006E7FF5 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C22A1B67AB006E7FF5 /* ItemList.swift */; };
 		AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C42A1B6A13006E7FF5 /* ItemNetworkManager.swift */; };
 		AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C72A1C4DC7006E7FF5 /* EndPoint.swift */; };
 		AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C92A1C4DED006E7FF5 /* HTTPMethod.swift */; };
@@ -71,7 +70,6 @@
 		AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManageable.swift; sourceTree = "<group>"; };
 		AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
-		AEA160C22A1B67AB006E7FF5 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		AEA160C42A1B6A13006E7FF5 /* ItemNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemNetworkManager.swift; sourceTree = "<group>"; };
 		AEA160C72A1C4DC7006E7FF5 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		AEA160C92A1C4DED006E7FF5 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 		AEA160882A1B0A00006E7FF5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				AEA160C22A1B67AB006E7FF5 /* ItemList.swift */,
 				AEA160992A1B4B92006E7FF5 /* Item.swift */,
 				AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */,
 			);
@@ -255,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */,
+				AEA160D12A1DA7E2006E7FF5 /* ItemListRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -380,6 +378,7 @@
 			files = (
 				AEA160942A1B0D91006E7FF5 /* CoreDataRepository.swift in Sources */,
 				AEA160902A1B0BAE006E7FF5 /* Currency.swift in Sources */,
+				AEA160D22A1DA7E2006E7FF5 /* ItemListRepository.swift in Sources */,
 				AEA160562A1AF0A0006E7FF5 /* ViewController.swift in Sources */,
 				AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */,
 				AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */,
@@ -395,6 +394,7 @@
 				AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */,
 				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
 				AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */,
+				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
 				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,
 				AEA160B22A1B5A2D006E7FF5 /* ItemDAO+CoreDataProperties.swift in Sources */,
 				AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */,
