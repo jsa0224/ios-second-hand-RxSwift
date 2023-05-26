@@ -2,39 +2,39 @@
 //  ItemRepository.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/05/22.
+//  Created by 정선아 on 2023/05/24.
 //
 
+import Foundation
 import RxSwift
 
-final class ItemRepository: CoreDataRepository {
-    private let coreDataManager: CoreDataManager
+final class ItemRepository: NetworkRepository {
+    private let networkManager: NetworkManager
 
-    init(coreDataManager: CoreDataManager) {
-        self.coreDataManager = coreDataManager
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
     }
 
-    func save(_ item: Item) {
-        coreDataManager.create(with: item)
-    }
+    func fetchItemList(pageNo: Int, itemPerPage: Int) -> Observable<[Item]> {
+        let endpoint = EndpointStorage
+            .searchProduct(pageNo: pageNo, itemPerPage: itemPerPage)
+            .asEndpoint
 
-    func fetchItemList() -> Observable<[Item]> {
-        return coreDataManager.fetchAllEntities()
-            .map {
-                $0.map { $0.toDomain() }
+        return networkManager.executeProductList(endpoint: endpoint)
+            .decode(type: ProductList.self, decoder: JSONDecoder())
+            .map { response in
+                guard let product = response.pages else { throw NetworkError.decodedError }
+
+                return product.compactMap { $0.toDomain() }
             }
     }
 
-    func fetchItem(with id: Int) -> Observable<Item> {
-        return coreDataManager.fetch(with: id)
-            .map { $0.toDomain() }
-    }
+    func fetchImage(url: String) -> Observable<Data> {
+        let endpoint = EndpointStorage
+            .searchProductImage(url)
+            .asEndpoint
 
-    func update(_ item: Item) {
-        coreDataManager.update(with: item)
-    }
-
-    func delete(_ item: Item) {
-        coreDataManager.delete(with: item)
+        return networkManager.executeProductImage(endpoint: endpoint)
+            .decode(type: Data.self, decoder: JSONDecoder())
     }
 }

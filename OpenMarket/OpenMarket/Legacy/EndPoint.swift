@@ -57,7 +57,7 @@ final class Endpoint {
     }
 
     func generateBaseUrl() throws -> URL {
-        var component = URLComponents(string: baseUrl)
+        let component = URLComponents(string: baseUrl)
 
         guard let url = component?.url else {
             throw NetworkError.invalidUrl
