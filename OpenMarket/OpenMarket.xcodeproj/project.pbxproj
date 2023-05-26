@@ -47,6 +47,12 @@
 		AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */; };
 		AEA160D22A1DA7E2006E7FF5 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */; };
 		AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */; };
+		AEA160DB2A204BCC006E7FF5 /* ItemUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */; };
+		AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */; };
+		AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */; };
+		AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E02A204F65006E7FF5 /* ItemListUseCase.swift */; };
+		AEA160E52A211C54006E7FF5 /* ImageUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */; };
+		AEA160E72A211C7E006E7FF5 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E62A211C7E006E7FF5 /* ImageUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +86,12 @@
 		AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
+		AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCaseType.swift; sourceTree = "<group>"; };
+		AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListUseCaseType.swift; sourceTree = "<group>"; };
+		AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCase.swift; sourceTree = "<group>"; };
+		AEA160E02A204F65006E7FF5 /* ItemListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListUseCase.swift; sourceTree = "<group>"; };
+		AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseType.swift; sourceTree = "<group>"; };
+		AEA160E62A211C7E006E7FF5 /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +180,7 @@
 			children = (
 				AEA160912A1B0CDD006E7FF5 /* Interfaces */,
 				AEA160882A1B0A00006E7FF5 /* Entities */,
+				AEA160D62A204B8C006E7FF5 /* UseCase */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -293,6 +306,27 @@
 			path = Legacy;
 			sourceTree = "<group>";
 		};
+		AEA160D62A204B8C006E7FF5 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				AEA160D92A204BC1006E7FF5 /* Protocol */,
+				AEA160E02A204F65006E7FF5 /* ItemListUseCase.swift */,
+				AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */,
+				AEA160E62A211C7E006E7FF5 /* ImageUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		AEA160D92A204BC1006E7FF5 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */,
+				AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */,
+				AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -391,12 +425,14 @@
 				AEA160B12A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
 				AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */,
+				AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */,
 				AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */,
 				AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
 				AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */,
 				AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */,
+				AEA160DB2A204BCC006E7FF5 /* ItemUseCaseType.swift in Sources */,
 				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
 				AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */,
 				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
@@ -405,8 +441,12 @@
 				AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */,
 				AEA1608C2A1B0A42006E7FF5 /* Product.swift in Sources */,
 				AEA1608A2A1B0A2C006E7FF5 /* ProductList.swift in Sources */,
+				AEA160E72A211C7E006E7FF5 /* ImageUseCase.swift in Sources */,
 				AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */,
+				AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */,
+				AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
+				AEA160E52A211C54006E7FF5 /* ImageUseCaseType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
