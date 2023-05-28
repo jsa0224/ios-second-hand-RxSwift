@@ -47,12 +47,12 @@
 		AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */; };
 		AEA160D22A1DA7E2006E7FF5 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */; };
 		AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */; };
-		AEA160DB2A204BCC006E7FF5 /* ItemUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */; };
 		AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */; };
 		AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */; };
 		AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E02A204F65006E7FF5 /* ItemListUseCase.swift */; };
-		AEA160E52A211C54006E7FF5 /* ImageUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */; };
 		AEA160E72A211C7E006E7FF5 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E62A211C7E006E7FF5 /* ImageUseCase.swift */; };
+		AEA160E92A22F9FD006E7FF5 /* ImageUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160E82A22F9FD006E7FF5 /* ImageUseCaseType.swift */; };
+		AEA160EB2A22FA24006E7FF5 /* ItemUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160EA2A22FA24006E7FF5 /* ItemUseCaseType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,12 +86,12 @@
 		AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
-		AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCaseType.swift; sourceTree = "<group>"; };
 		AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListUseCaseType.swift; sourceTree = "<group>"; };
 		AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCase.swift; sourceTree = "<group>"; };
 		AEA160E02A204F65006E7FF5 /* ItemListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListUseCase.swift; sourceTree = "<group>"; };
-		AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseType.swift; sourceTree = "<group>"; };
 		AEA160E62A211C7E006E7FF5 /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
+		AEA160E82A22F9FD006E7FF5 /* ImageUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseType.swift; sourceTree = "<group>"; };
+		AEA160EA2A22FA24006E7FF5 /* ItemUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCaseType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,8 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */,
-				AEA160DA2A204BCC006E7FF5 /* ItemUseCaseType.swift */,
-				AEA160E42A211C54006E7FF5 /* ImageUseCaseType.swift */,
+				AEA160E82A22F9FD006E7FF5 /* ImageUseCaseType.swift */,
+				AEA160EA2A22FA24006E7FF5 /* ItemUseCaseType.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -423,7 +423,9 @@
 				AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */,
 				AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */,
 				AEA160B12A1B5A2D006E7FF5 /* ItemDAO+CoreDataClass.swift in Sources */,
+				AEA160E92A22F9FD006E7FF5 /* ImageUseCaseType.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
+				AEA160EB2A22FA24006E7FF5 /* ItemUseCaseType.swift in Sources */,
 				AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */,
 				AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */,
 				AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */,
@@ -432,7 +434,6 @@
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
 				AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */,
 				AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */,
-				AEA160DB2A204BCC006E7FF5 /* ItemUseCaseType.swift in Sources */,
 				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
 				AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */,
 				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
@@ -446,7 +447,6 @@
 				AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */,
 				AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */,
 				AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */,
-				AEA160E52A211C54006E7FF5 /* ImageUseCaseType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
