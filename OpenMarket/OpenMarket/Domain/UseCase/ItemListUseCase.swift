@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class ItemListUseCase: ItemListUseCaseType {
     private let itemListRepository: NetworkRepository
@@ -14,7 +15,7 @@ final class ItemListUseCase: ItemListUseCaseType {
         self.itemListRepository = itemListRepository
     }
 
-    func fetchItemList(_ pageNo: Int, _ itemPerPage: Int) {
-        itemListRepository.fetchItemList(pageNo: pageNo, itemPerPage: itemPerPage)
+    func fetchItemList(_ pageNo: Int, _ itemPerPage: Int) -> Observable<[Item]> {
+        return itemListRepository.fetchItemList(pageNo: pageNo, itemPerPage: itemPerPage)
     }
 }

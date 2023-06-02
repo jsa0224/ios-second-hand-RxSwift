@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ItemListUseCaseType {
-    func fetchItemList(_ pageNo: Int, _ itemPerPage: Int)
+    func fetchItemList(_ pageNo: Int, _ itemPerPage: Int) -> Observable<[Item]>
 }
