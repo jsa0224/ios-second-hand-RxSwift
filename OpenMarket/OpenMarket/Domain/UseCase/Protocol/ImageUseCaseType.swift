@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ImageUseCaseType {
-    func fetchItemImage(_ url: String)
+    func fetchItemImage(_ url: String) -> Observable<Data>
 }

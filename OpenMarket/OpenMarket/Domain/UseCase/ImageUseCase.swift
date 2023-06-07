@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class ImageUseCase: ImageUseCaseType {
     private let imageRepository: NetworkRepository
@@ -14,7 +15,7 @@ final class ImageUseCase: ImageUseCaseType {
         self.imageRepository = imageRepository
     }
 
-    func fetchItemImage(_ url: String) {
-        imageRepository.fetchImage(url: url)
+    func fetchItemImage(_ url: String) -> Observable<Data> {
+        return imageRepository.fetchImage(url: url)
     }
 }
