@@ -107,9 +107,15 @@ final class ItemCollectionViewCell: UICollectionViewCell {
             .bind(to: itemView.priceLabel.rx.attributedText)
             .disposed(by: disposeBag)
 
-        if itemView.itemImageView.image != nil {
+        output?
+            .workItem
+            .observe(on: MainScheduler.instance)
+            .map { $0.isEmptyThumbnail }
+            .bind(to: loadingView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        if loadingView.isHidden {
             loadingView.stopAnimating()
-            loadingView.isHidden = true
         }
     }
 

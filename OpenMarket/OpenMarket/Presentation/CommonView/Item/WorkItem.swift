@@ -86,4 +86,8 @@ struct WorkItem {
 
         return nil
     }
+
+    var isEmptyThumbnail: Bool {
+        return !thumbnail.isEmpty
+    }
 }
