@@ -8,7 +8,7 @@
 struct ProductForm: Codable {
     let name, description: String
     let price: Int
-    let currency: Currency
+    let currency: String
     let discountedPrice, stock: Int
     let secret: String
 

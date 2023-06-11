@@ -6,13 +6,8 @@
 //
 
 struct ProductList: Codable {
-    let pageNo: Int?
-    let itemsPerPage: Int?
-    let totalCount: Int?
-    let offset: Int?
-    let limit: Int?
-    let lastPage: Int?
-    let hasNext: Bool?
-    let hasPrev: Bool?
-    let pages: [Product]?
+    let pageNo, itemsPerPage, totalCount, offset: Int
+    let limit, lastPage: Int
+    let hasNext, hasPrev: Bool
+    let pages: [Product]
 }

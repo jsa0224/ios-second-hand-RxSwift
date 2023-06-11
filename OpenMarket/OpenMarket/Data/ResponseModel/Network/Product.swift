@@ -7,16 +7,19 @@
 
 struct Product: Codable, Hashable {
     let id, vendorID, stock: Int
-    let name, description, thumbnail, createdAt, issuedAt: String
-    let vendorName: String?
-    let currency: Currency
+    let vendorName, name, description: String
+    let thumbnail: String
+    let currency: String
     let price, bargainPrice, discountedPrice: Double
+    let createdAt, issuedAt: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name, thumbnail, currency, price, vendorName, description, stock
+        case id
         case vendorID = "vendor_id"
+        case vendorName, name, description, thumbnail, currency, price
         case bargainPrice = "bargain_price"
         case discountedPrice = "discounted_price"
+        case stock
         case createdAt = "created_at"
         case issuedAt = "issued_at"
     }
