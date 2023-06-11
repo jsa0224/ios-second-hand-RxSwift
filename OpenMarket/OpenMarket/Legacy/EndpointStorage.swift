@@ -15,6 +15,7 @@ enum EndpointStorage {
     }
 
     case searchProduct(pageNo: Int, itemPerPage: Int)
+    case searchProductByName(searchValue: String)
     case searchProductImage(String)
 }
 
@@ -29,6 +30,15 @@ extension EndpointStorage {
                 queries: [
                     "page_no" : pageNo,
                     "items_per_page" : itemPerPage
+                ]
+            )
+        case .searchProductByName(let searchValue):
+            return Endpoint(
+                baseUrl: Constant.baseUrl,
+                path: Constant.searchPath,
+                method: .get,
+                queries: [
+                    "search_value" : searchValue
                 ]
             )
         case .searchProductImage(let url):

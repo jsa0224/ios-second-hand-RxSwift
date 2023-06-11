@@ -10,5 +10,6 @@ import RxSwift
 
 protocol NetworkRepository {
     func fetchItemList(pageNo: Int, itemPerPage: Int) -> Observable<[Item]>
+    func fetchItemList(searchValue: String) -> Observable<[Item]>
     func fetchImage(url: String) -> Observable<Data>
 }

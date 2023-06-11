@@ -23,7 +23,21 @@ final class ItemRepository: NetworkRepository {
         return networkManager.executeProductList(endpoint: endpoint)
             .decode(type: ProductList.self, decoder: JSONDecoder())
             .map { response in
-                guard let product = response.pages else { throw NetworkError.decodedError }
+                let product = response.pages 
+
+                return product.compactMap { $0.toDomain() }
+            }
+    }
+
+    func fetchItemList(searchValue: String) -> Observable<[Item]> {
+        let endpoint = EndpointStorage
+            .searchProductByName(searchValue: searchValue)
+            .asEndpoint
+
+        return networkManager.executeProductList(endpoint: endpoint)
+            .decode(type: ProductList.self, decoder: JSONDecoder())
+            .map { response in
+                let product = response.pages
 
                 return product.compactMap { $0.toDomain() }
             }
@@ -35,6 +49,5 @@ final class ItemRepository: NetworkRepository {
             .asEndpoint
 
         return networkManager.executeProductImage(endpoint: endpoint)
-            .decode(type: Data.self, decoder: JSONDecoder())
     }
 }
