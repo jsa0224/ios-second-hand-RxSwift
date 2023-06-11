@@ -26,15 +26,15 @@ struct WorkItem {
     }
 
     var price: String {
-        return "\(item.price)"
+        return "\(item.price)원"
     }
 
     var discountedPrice: String {
-        return "\(item.discountedPrice)"
+        return "\(item.discountedPrice)원"
     }
 
     var bargainPrice: String {
-        return "\(item.bargainPrice)"
+        return "\(item.bargainPrice)원"
     }
 
     var stock: String {
@@ -42,14 +42,48 @@ struct WorkItem {
             return "Sold Out"
         }
         
-        return "\(item.stock)"
+        return "재고 개수: \(item.stock)"
     }
 
     var isEmpty: Bool {
         return item.stock == 0
     }
 
+    var stockColor: UIColor {
+        if isEmpty {
+            return .systemYellow
+        }
+
+        return .systemGray
+    }
+
+    var isHidden: Bool {
+        return !isDiscounted
+    }
+
     var isDiscounted: Bool {
         return item.bargainPrice != item.price
+    }
+
+    var priceColor: UIColor {
+        if isDiscounted {
+            return .systemRed
+        }
+
+        return .systemGray
+    }
+
+    var priceAttributeString: NSAttributedString? {
+        if isDiscounted {
+            let attribute = NSMutableAttributedString(string: price)
+
+            attribute.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                                   value: NSUnderlineStyle.single.rawValue,
+                                   range: NSMakeRange(0, attribute.length))
+
+            return attribute
+        }
+
+        return nil
     }
 }

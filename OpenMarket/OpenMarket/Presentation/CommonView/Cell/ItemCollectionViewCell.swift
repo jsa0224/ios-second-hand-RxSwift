@@ -15,6 +15,12 @@ final class ItemCollectionViewCell: UICollectionViewCell {
     }
 
     private let itemView = ItemView()
+    private let loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
     private var viewModel: ItemCellViewModel?
     private var disposeBag = DisposeBag()
 
@@ -34,7 +40,8 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         itemView.nameLabel.text = nil
         itemView.priceLabel.text = nil
         itemView.priceForSaleLabel.text = nil
-        itemView.stockLabel.text = nil
+        loadingView.startAnimating()
+        loadingView.isHidden = false
         
         disposeBag = DisposeBag()
     }
@@ -75,22 +82,46 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         output?
             .workItem
             .observe(on: MainScheduler.instance)
-            .map { $0.discountedPrice }
+            .map { $0.bargainPrice }
             .bind(to: itemView.priceForSaleLabel.rx.text)
             .disposed(by: disposeBag)
 
         output?
             .workItem
             .observe(on: MainScheduler.instance)
-            .map { $0.stock }
-            .bind(to: itemView.stockLabel.rx.text)
+            .map { $0.priceColor }
+            .bind(to: itemView.priceLabel.rx.textColor)
             .disposed(by: disposeBag)
+
+        output?
+            .workItem
+            .observe(on: MainScheduler.instance)
+            .map { $0.isHidden }
+            .bind(to: itemView.priceLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output?
+            .workItem
+            .observe(on: MainScheduler.instance)
+            .map { $0.priceAttributeString }
+            .bind(to: itemView.priceLabel.rx.attributedText)
+            .disposed(by: disposeBag)
+
+        if itemView.itemImageView.image != nil {
+            loadingView.stopAnimating()
+            loadingView.isHidden = true
+        }
     }
 
     private func configureLayout() {
+        contentView.addSubview(loadingView)
         contentView.addSubview(itemView)
 
         NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             itemView.topAnchor.constraint(equalTo: contentView.topAnchor),
             itemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             itemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

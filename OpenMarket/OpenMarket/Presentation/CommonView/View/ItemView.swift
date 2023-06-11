@@ -11,7 +11,7 @@ final class ItemView: UIView {
     private(set) var itemImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -36,7 +36,7 @@ final class ItemView: UIView {
     private let priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
+        stackView.axis = .horizontal
         stackView.spacing = 4
         stackView.distribution = .fill
         return stackView
@@ -44,22 +44,22 @@ final class ItemView: UIView {
 
     private(set) var nameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 2
         return label
     }()
 
     private(set) var priceLabel: UILabel = {
         let label = UILabel()
-        label.isHidden = true
+        label.textColor = .systemGray
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
 
     private(set) var priceForSaleLabel: UILabel = {
         let label = UILabel()
-        return label
-    }()
-
-    private(set) var stockLabel: UILabel = {
-        let label = UILabel()
+        label.textColor = .systemGray
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
 
@@ -70,14 +70,8 @@ final class ItemView: UIView {
         button.setImage(heartImage, for: .normal)
         button.setImage(heartFillImage, for: .selected)
         button.tintColor = .systemRed
+        button.contentHorizontalAlignment = .right
         return button
-    }()
-
-    private let loadingView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill
-        return view
     }()
 
     override init(frame: CGRect) {
@@ -99,47 +93,29 @@ final class ItemView: UIView {
         middleStackView.addArrangedSubview(heartButton)
         priceStackView.addArrangedSubview(priceLabel)
         priceStackView.addArrangedSubview(priceForSaleLabel)
-        textStackView.addArrangedSubview(stockLabel)
+
+        if priceLabel.isHidden {
+            priceStackView.removeArrangedSubview(priceLabel)
+            priceLabel.removeFromSuperview()
+        }
 
         NSLayoutConstraint.activate([
-            itemImageView.widthAnchor.constraint(equalTo: widthAnchor),
-            itemImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
-            textStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor),
-            textStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            itemImageView.topAnchor.constraint(equalTo: topAnchor,
+                                               constant: 16),
+            itemImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                               constant: 4),
+            itemImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                               constant: -4),
+            itemImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65),
+            textStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor,
+                                               constant: 4),
+            textStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                   constant: 8),
+            textStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                    constant: -8),
+            textStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                                  constant: -4)
            ])
-    }
-
-    func configureView(item: WorkItem, image: UIImage) {
-        nameLabel.text = item.name
-        priceLabel.text = .none
-        priceLabel.attributedText = .none
-        stockLabel.text = Namespace.stock + item.stock
-        stockLabel.textColor = .systemGray
-        priceForSaleLabel.text = item.discountedPrice
-        priceForSaleLabel.textColor = .systemGray
-
-        if item.isDiscounted {
-            priceLabel.isHidden = false
-            priceForSaleLabel.text = item.discountedPrice
-            priceLabel.textColor = .systemRed
-            priceLabel.text = item.price
-
-            guard let priceText = priceLabel.text else { return }
-            let attribute = NSMutableAttributedString(string: priceText)
-            attribute.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attribute.length))
-            priceLabel.attributedText = attribute
-            priceForSaleLabel.textColor = .systemGray
-        }
-
-        if item.isEmpty {
-            stockLabel.textColor = .systemYellow
-        }
-
-        layer.cornerRadius = 10.0
-        layer.borderColor = UIColor.systemGray.cgColor
-        layer.borderWidth = 1
     }
 
     private enum Namespace {

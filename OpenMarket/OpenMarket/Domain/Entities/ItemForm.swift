@@ -9,7 +9,7 @@ struct ItemForm {
     let name: String
     let description: String
     let price: Int
-    let currency: Currency
+    let currency: String
     let discountedPrice: Int
     let stock: Int
     let secret: String
