@@ -10,4 +10,5 @@ import RxSwift
 
 protocol ItemListUseCaseType {
     func fetchItemList(_ pageNo: Int, _ itemPerPage: Int) -> Observable<[Item]>
+    func fetchItem(by searchValue: String) -> Observable<[Item]>
 }

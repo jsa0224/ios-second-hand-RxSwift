@@ -18,4 +18,8 @@ final class ItemListUseCase: ItemListUseCaseType {
     func fetchItemList(_ pageNo: Int, _ itemPerPage: Int) -> Observable<[Item]> {
         return itemListRepository.fetchItemList(pageNo: pageNo, itemPerPage: itemPerPage)
     }
+
+    func fetchItem(by searchValue: String) -> Observable<[Item]> {
+        return itemListRepository.fetchItemList(searchValue: searchValue)
+    }
 }
