@@ -117,11 +117,4 @@ final class ItemView: UIView {
                                                   constant: -4)
            ])
     }
-
-    private enum Namespace {
-        static let stock = "잔여수량: "
-        static let soldOut = "품절"
-        static let textViewPlaceHolder = "텍스트를 입력하세요."
-    }
-
 }
