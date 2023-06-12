@@ -25,6 +25,10 @@ struct WorkItem {
         return item.name
     }
 
+    var description: String {
+        return item.description
+    }
+
     var price: String {
         return "\(item.price)원"
     }
