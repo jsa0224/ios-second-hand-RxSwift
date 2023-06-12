@@ -35,6 +35,7 @@ extension Product {
                     price: self.price,
                     bargainPrice: self.bargainPrice,
                     discountedPrice: self.discountedPrice,
-                    favorites: false)
+                    favorites: false,
+                    isAddCart: false)
     }
 }
