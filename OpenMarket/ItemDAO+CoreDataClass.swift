@@ -2,7 +2,7 @@
 //  ItemDAO+CoreDataClass.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/05/22.
+//  Created by 정선아 on 2023/06/12.
 //
 //
 
