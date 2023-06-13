@@ -98,11 +98,12 @@ class DetailView: UIView {
         return textView
     }()
 
-    private let cartButton: UIButton = {
+    private(set) var cartButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add To Cart", for: .normal)
-        button.tintColor = UIColor(named: "selectedColor")
+        button.backgroundColor = UIColor(named: "selectedColor")
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 8
         return button
     }()
 

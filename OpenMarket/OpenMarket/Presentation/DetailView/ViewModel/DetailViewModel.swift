@@ -20,21 +20,25 @@ final class DetailViewModel {
     }
 
     private let itemUseCase: ItemUseCaseType
-    private let item: Item
-    private let itemImage: Data
+    private let imageUseCase: ImageUseCaseType
+    private(set) var item: Item
 
-    init(itemUseCase: ItemUseCaseType, item: Item, itemImage: Data) {
+    init(itemUseCase: ItemUseCaseType, imageUseCase: ImageUseCaseType, item: Item) {
         self.itemUseCase = itemUseCase
+        self.imageUseCase = imageUseCase
         self.item = item
-        self.itemImage = itemImage
     }
 
     func transform(_ input: Input) -> Output {
         let workItem = input.didShowView
             .withUnretained(self)
-            .map { owner, _ in
-                WorkItem(item: owner.item,
-                         thumbnail: owner.itemImage)
+            .flatMap { owner, _ in
+                owner
+                    .imageUseCase
+                    .fetchItemImage(owner.item.thumbnail)
+                    .map {
+                        WorkItem(item: owner.item, thumbnail: $0)
+                    }
             }
 
         let popDetailViewTrigger = input.didTapAddCartButton

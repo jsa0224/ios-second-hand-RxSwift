@@ -22,6 +22,9 @@
 		AE63863C2A36ED89004FFD48 /* ItemDAO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE63863A2A36ED89004FFD48 /* ItemDAO+CoreDataClass.swift */; };
 		AE63863D2A36ED89004FFD48 /* ItemDAO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE63863B2A36ED89004FFD48 /* ItemDAO+CoreDataProperties.swift */; };
 		AE63863F2A36EF23004FFD48 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE63863E2A36EF23004FFD48 /* DetailView.swift */; };
+		AE6386412A38066B004FFD48 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6386402A38066B004FFD48 /* DetailViewController.swift */; };
+		AE6386442A380BB4004FFD48 /* AlertActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6386432A380BB4004FFD48 /* AlertActionType.swift */; };
+		AE6386462A380BCD004FFD48 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6386452A380BCD004FFD48 /* AlertManager.swift */; };
 		AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */; };
 		AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */; };
 		AEA160562A1AF0A0006E7FF5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160552A1AF0A0006E7FF5 /* HomeViewController.swift */; };
@@ -67,6 +70,9 @@
 		AE63863A2A36ED89004FFD48 /* ItemDAO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDAO+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		AE63863B2A36ED89004FFD48 /* ItemDAO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemDAO+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		AE63863E2A36EF23004FFD48 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		AE6386402A38066B004FFD48 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		AE6386432A380BB4004FFD48 /* AlertActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertActionType.swift; sourceTree = "<group>"; };
+		AE6386452A380BCD004FFD48 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		AEA1604E2A1AF0A0006E7FF5 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +143,7 @@
 		AE18215B2A29BADA0087ABC8 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				AE6386422A380B97004FFD48 /* Alert */,
 				AE579A782A30640B00877F3B /* Item */,
 				AE579A772A30640000877F3B /* View */,
 				AE579A812A30793500877F3B /* Cell */,
@@ -183,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				AE63863E2A36EF23004FFD48 /* DetailView.swift */,
+				AE6386402A38066B004FFD48 /* DetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,6 +201,15 @@
 				AE6386382A36EB93004FFD48 /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AE6386422A380B97004FFD48 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				AE6386432A380BB4004FFD48 /* AlertActionType.swift */,
+				AE6386452A380BCD004FFD48 /* AlertManager.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		AEA160452A1AF0A0006E7FF5 = {
@@ -497,6 +514,7 @@
 				AE63863C2A36ED89004FFD48 /* ItemDAO+CoreDataClass.swift in Sources */,
 				AEA160E92A22F9FD006E7FF5 /* ImageUseCaseType.swift in Sources */,
 				AEA1605C2A1AF0A0006E7FF5 /* OpenMarket.xcdatamodeld in Sources */,
+				AE6386412A38066B004FFD48 /* DetailViewController.swift in Sources */,
 				AEA160EB2A22FA24006E7FF5 /* ItemUseCaseType.swift in Sources */,
 				AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */,
 				AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */,
@@ -504,6 +522,7 @@
 				AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,
+				AE6386442A380BB4004FFD48 /* AlertActionType.swift in Sources */,
 				AEA160C82A1C4DC7006E7FF5 /* EndPoint.swift in Sources */,
 				AE579A842A30A03800877F3B /* ItemCellViewModel.swift in Sources */,
 				AEA160C52A1B6A13006E7FF5 /* ItemNetworkManager.swift in Sources */,
@@ -513,6 +532,7 @@
 				AE579A802A3073E200877F3B /* ItemCollectionViewCell.swift in Sources */,
 				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
 				AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */,
+				AE6386462A380BCD004FFD48 /* AlertManager.swift in Sources */,
 				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
 				AE6386332A30CAAD004FFD48 /* Reactive.swift in Sources */,
 				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,

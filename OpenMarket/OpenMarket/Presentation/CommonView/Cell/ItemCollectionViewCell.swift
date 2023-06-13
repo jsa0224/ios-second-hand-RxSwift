@@ -14,7 +14,7 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
 
-    private let itemView = ItemView()
+    private(set) var itemView = ItemView()
     private let loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
