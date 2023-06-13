@@ -5,7 +5,7 @@
 //  Created by 정선아 on 2023/05/24.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 final class ItemRepository: NetworkRepository {
@@ -43,11 +43,19 @@ final class ItemRepository: NetworkRepository {
             }
     }
 
-    func fetchImage(url: String) -> Observable<Data> {
+    func fetchImage(url: String) -> Observable<UIImage> {
+        let cachedKey = NSString(string: url)
+
+        if let cachedImage = ImageCacheManager.shared.object(forKey: cachedKey) {
+            return Observable.just(cachedImage)
+        }
+
         let endpoint = EndpointStorage
             .searchProductImage(url)
             .asEndpoint
 
-        return networkManager.executeProductImage(endpoint: endpoint)
+        return networkManager
+                .executeProductImage(endpoint: endpoint)
+                .map { UIImage(data: $0) ?? UIImage() }
     }
 }

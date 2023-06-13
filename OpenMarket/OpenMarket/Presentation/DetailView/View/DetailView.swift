@@ -118,7 +118,7 @@ class DetailView: UIView {
     }
 
     func configureView(_ item: WorkItem) {
-        itemImageView.image = UIImage(data: item.itemImage)
+        itemImageView.image = item.itemImage
         nameLabel.text = item.name
         stockLabel.text = item.stock
         stockLabel.textColor = item.stockColor

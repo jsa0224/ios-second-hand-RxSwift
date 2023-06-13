@@ -60,7 +60,7 @@ final class ItemCollectionViewCell: UICollectionViewCell {
             .workItem
             .observe(on: MainScheduler.instance)
             .map {
-                UIImage(data: $0.itemImage) ?? UIImage()
+                $0.itemImage
             }
             .bind(to: itemView.itemImageView.rx.image)
             .disposed(by: disposeBag)
