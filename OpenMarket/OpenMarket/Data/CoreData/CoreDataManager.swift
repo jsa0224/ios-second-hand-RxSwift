@@ -49,6 +49,14 @@ final class CoreDataManager: CoreDataManageable {
         return request
     }
 
+    private func generateRequest(by isAddCart: Bool) -> NSFetchRequest<ItemDAO> {
+        let request: NSFetchRequest<ItemDAO> = ItemDAO.fetchRequest()
+        let predicate = NSPredicate(format: "isAddCart == %@", true as CVarArg)
+        request.returnsObjectsAsFaults = false
+        request.predicate = predicate
+        return request
+    }
+
     private func fetchResult(from request: NSFetchRequest<ItemDAO>) -> ItemDAO? {
         guard let fetchResult = try? context.fetch(request),
               let itemDAO = fetchResult.first
@@ -70,6 +78,7 @@ final class CoreDataManager: CoreDataManageable {
             objectToUpdate.bargainPrice = item.bargainPrice
             objectToUpdate.discountedPrice = item.discountedPrice
             objectToUpdate.favorites = item.favorites
+            objectToUpdate.isAddCart = item.isAddCart
         } else {
             let entity = ItemDAO(context: context)
             entity.id = Int16(item.id)
@@ -81,6 +90,7 @@ final class CoreDataManager: CoreDataManageable {
             entity.bargainPrice = item.bargainPrice
             entity.discountedPrice = item.discountedPrice
             entity.favorites = item.favorites
+            entity.isAddCart = item.isAddCart
         }
 
         saveContext()
@@ -102,6 +112,21 @@ final class CoreDataManager: CoreDataManageable {
         }
     }
 
+    func fetch(to isAddCart: Bool) -> Observable<[ItemDAO]> {
+        return Observable.create { [weak self] emitter in
+            guard let request = self?.generateRequest(by: isAddCart),
+                  let fetchResult = try? self?.context.fetch(request)
+            else {
+                emitter.onError(CoreDataError.readFail)
+                return Disposables.create()
+            }
+
+            emitter.onNext(fetchResult)
+            emitter.onCompleted()
+
+            return Disposables.create()
+        }
+    }
 
     func fetchAllEntities() -> Observable<[ItemDAO]> {
         return Observable.create { [weak self] emitter in
