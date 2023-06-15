@@ -5,7 +5,7 @@
 //  Created by 정선아 on 2023/05/27.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 
 final class ImageUseCase: ImageUseCaseType {
@@ -15,7 +15,7 @@ final class ImageUseCase: ImageUseCaseType {
         self.imageRepository = imageRepository
     }
 
-    func fetchItemImage(_ url: String) -> Observable<Data> {
+    func fetchItemImage(_ url: String) -> Observable<UIImage> {
         return imageRepository.fetchImage(url: url)
     }
 }

@@ -43,7 +43,7 @@ final class CoreDataManager: CoreDataManageable {
 
     private func generateRequest(by id: Int) -> NSFetchRequest<ItemDAO> {
         let request: NSFetchRequest<ItemDAO> = ItemDAO.fetchRequest()
-        let predicate = NSPredicate(format: CoreDataNamespace.idRegex, id as CVarArg)
+        let predicate = NSPredicate(format: "id == %d", Int(id))
         request.returnsObjectsAsFaults = false
         request.predicate = predicate
         return request

@@ -14,7 +14,7 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
 
-    private let itemView = ItemView()
+    private(set) var itemView = ItemView()
     private let loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ final class ItemCollectionViewCell: UICollectionViewCell {
             .workItem
             .observe(on: MainScheduler.instance)
             .map {
-                UIImage(data: $0.itemImage) ?? UIImage()
+                $0.itemImage
             }
             .bind(to: itemView.itemImageView.rx.image)
             .disposed(by: disposeBag)

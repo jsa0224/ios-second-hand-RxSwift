@@ -10,19 +10,23 @@ import RxSwift
 
 struct WorkItem {
     private let item: Item
-    private let thumbnail: Data
+    private let thumbnail: UIImage
 
-    init(item: Item, thumbnail: Data) {
+    init(item: Item, thumbnail: UIImage) {
         self.item = item
         self.thumbnail = thumbnail
     }
 
-    var itemImage: Data {
+    var itemImage: UIImage {
         return thumbnail
     }
 
     var name: String {
         return item.name
+    }
+
+    var description: String {
+        return item.description
     }
 
     var price: String {
@@ -88,6 +92,6 @@ struct WorkItem {
     }
 
     var isEmptyThumbnail: Bool {
-        return !thumbnail.isEmpty
+        return thumbnail != nil
     }
 }

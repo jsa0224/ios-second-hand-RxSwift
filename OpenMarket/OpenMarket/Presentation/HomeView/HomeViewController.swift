@@ -49,7 +49,7 @@ final class HomeViewController: UIViewController {
         let image = UIImage(named: "SecondHand")
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
-        self.view.backgroundColor = UIColor(named: "mainColor")
+        self.view.backgroundColor = .white
     }
 
     private func bind() {
@@ -78,7 +78,19 @@ final class HomeViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, item in
-                // TODO: 디테일뷰 구현
+                let networkManager = ItemNetworkManager()
+                let coreDataManager = CoreDataManager.shared
+                let itemRepository = ItemRepository(networkManager: networkManager)
+                let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+                let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
+                let imageUseCase = ImageUseCase(imageRepository: itemRepository)
+                let detailViewModel = DetailViewModel(itemUseCase: itemUseCase,
+                                                      imageUseCase: imageUseCase,
+                                                      item: item)
+                let detailViewController = DetailViewController(viewModel: detailViewModel
+                )
+                owner.navigationController?.pushViewController(detailViewController,
+                                                               animated: true)
             })
             .disposed(by: disposeBag)
     }

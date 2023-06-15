@@ -15,4 +15,5 @@ struct Item {
     let bargainPrice: Double
     let discountedPrice: Double
     var favorites: Bool
+    var isAddCart: Bool
 }

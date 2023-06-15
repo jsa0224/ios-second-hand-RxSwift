@@ -1,13 +1,15 @@
 //
-//  ItemView.swift
+//  DetailView.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/06/02.
+//  Created by 정선아 on 2023/06/12.
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
-final class ItemView: UIView {
+class DetailView: UIView {
     private(set) var itemImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +46,7 @@ final class ItemView: UIView {
 
     private(set) var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.numberOfLines = 2
         return label
     }()
@@ -52,14 +54,14 @@ final class ItemView: UIView {
     private(set) var priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
 
     private(set) var priceForSaleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
 
@@ -74,6 +76,37 @@ final class ItemView: UIView {
         return button
     }()
 
+    private let stockLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        return label
+    }()
+
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.textColor = .black
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.textContainerInset = UIEdgeInsets(top: 4,
+                                                   left: 4,
+                                                   bottom: 4,
+                                                   right: 4)
+        textView.keyboardDismissMode = .onDrag
+        textView.setContentHuggingPriority(.init(1),
+                                           for: .vertical)
+        textView.isEditable = false
+        return textView
+    }()
+
+    private(set) var cartButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add To Cart", for: .normal)
+        button.backgroundColor = UIColor(named: "selectedColor")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 8
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -84,11 +117,32 @@ final class ItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureLayout() {
+    func configureView(_ item: WorkItem) {
+        itemImageView.image = item.itemImage
+        nameLabel.text = item.name
+        stockLabel.text = item.stock
+        stockLabel.textColor = item.stockColor
+        priceLabel.text = item.price
+        priceLabel.textColor = item.priceColor
+        priceLabel.attributedText = item.priceAttributeString
+        priceLabel.isHidden = item.isHidden
+        priceForSaleLabel.text = item.bargainPrice
+        descriptionTextView.text = item.description
+
+        if priceLabel.isHidden {
+            priceStackView.removeArrangedSubview(priceLabel)
+            priceLabel.removeFromSuperview()
+        }
+    }
+
+    private func configureLayout() {
         addSubview(itemImageView)
         addSubview(textStackView)
+        addSubview(cartButton)
         textStackView.addArrangedSubview(nameLabel)
         textStackView.addArrangedSubview(middleStackView)
+        textStackView.addArrangedSubview(stockLabel)
+        textStackView.addArrangedSubview(descriptionTextView)
         middleStackView.addArrangedSubview(priceStackView)
         middleStackView.addArrangedSubview(heartButton)
         priceStackView.addArrangedSubview(priceLabel)
@@ -113,8 +167,14 @@ final class ItemView: UIView {
                                                    constant: 8),
             textStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
                                                     constant: -8),
-            textStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                  constant: -4)
+            cartButton.topAnchor.constraint(equalTo: textStackView.bottomAnchor,
+                                            constant: 4),
+            cartButton.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                   constant: 4),
+            cartButton.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                    constant: -4),
+            cartButton.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                               constant: -4)
            ])
     }
 }
