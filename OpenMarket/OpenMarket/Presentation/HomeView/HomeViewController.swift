@@ -17,9 +17,9 @@ final class HomeViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private var collectionView: UICollectionView?
     private var itemListDataSource = DataSource { _, collectionView, indexPath, item in
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier,
-                                                            for: indexPath) as? ItemCollectionViewCell else {
-            return ItemCollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemGridCollectionViewCell.identifier,
+                                                            for: indexPath) as? ItemGridCollectionViewCell else {
+            return ItemGridCollectionViewCell()
         }
 
         cell.bind(item)
@@ -146,7 +146,7 @@ extension HomeViewController {
             return
         }
 
-        collectionView.register(ItemCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
+        collectionView.register(ItemGridCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ItemGridCollectionViewCell.identifier)
     }
 }

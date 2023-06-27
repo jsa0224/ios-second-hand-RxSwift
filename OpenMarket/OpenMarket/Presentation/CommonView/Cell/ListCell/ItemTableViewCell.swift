@@ -1,31 +1,32 @@
 //
-//  ItemCollectionViewCell.swift
+//  ItemListCollectionViewCell.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/06/07.
+//  Created by 정선아 on 2023/06/15.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-final class ItemCollectionViewCell: UICollectionViewCell {
+final class ItemTableViewCell: UITableViewCell {
     static var identifier: String {
         return String(describing: self)
     }
 
-    private(set) var itemView = ItemView()
+    private(set) var itemView = ListView()
     private let loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         return view
     }()
-    private var viewModel: ItemCellViewModel?
+    private var viewModel: TableViewCellViewModel?
     private var disposeBag = DisposeBag()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
         configureLayout()
     }
 
@@ -42,18 +43,23 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         itemView.priceForSaleLabel.text = nil
         loadingView.startAnimating()
         loadingView.isHidden = false
-        
+
         disposeBag = DisposeBag()
     }
 
     func bind(_ item: Item) {
         let networkManager = ItemNetworkManager()
-        let imageRepository = ItemRepository(networkManager: networkManager)
-        let imageUseCase = ImageUseCase(imageRepository: imageRepository)
-        viewModel = ItemCellViewModel(imageUseCase: imageUseCase)
+        let coreDataManager = CoreDataManager.shared
+        let itemRepository = ItemRepository(networkManager: networkManager)
+        let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+        let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
+        let imageUseCase = ImageUseCase(imageRepository: itemRepository)
+        viewModel = TableViewCellViewModel(imageUseCase: imageUseCase,
+                                      itemUseCase: itemUseCase)
 
         let item: Observable<Item> = Observable.just(item)
-        let input = ItemCellViewModel.Input(didShowCell: item)
+        
+        let input = TableViewCellViewModel.Input(didShowCell: item)
         let output = viewModel?.transform(input)
 
         output?
@@ -110,6 +116,20 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         output?
             .workItem
             .observe(on: MainScheduler.instance)
+            .map { $0.stock }
+            .bind(to: itemView.stockLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        output?
+            .workItem
+            .observe(on: MainScheduler.instance)
+            .map { $0.stockColor }
+            .bind(to: itemView.stockLabel.rx.textColor)
+            .disposed(by: disposeBag)
+
+        output?
+            .workItem
+            .observe(on: MainScheduler.instance)
             .map { $0.isEmptyThumbnail }
             .bind(to: loadingView.rx.isHidden)
             .disposed(by: disposeBag)
@@ -124,6 +144,7 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(itemView)
 
         NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 100),
             loadingView.topAnchor.constraint(equalTo: contentView.topAnchor),
             loadingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             loadingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -140,3 +161,4 @@ final class ItemCollectionViewCell: UICollectionViewCell {
         contentView.systemLayoutSizeFitting(.init(width: self.bounds.width, height: self.bounds.height))
     }
 }
+

@@ -1,14 +1,14 @@
 //
-//  ItemCellViewModel.swift
+//  GridCellViewModel.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/06/07.
+//  Created by 정선아 on 2023/06/26.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 
-final class ItemCellViewModel {
+final class GridCellViewModel {
     struct Input {
         var didShowCell: Observable<Item>
     }
@@ -38,5 +38,6 @@ final class ItemCellViewModel {
 
         return Output(workItem: item)
     }
-    
+
 }
+

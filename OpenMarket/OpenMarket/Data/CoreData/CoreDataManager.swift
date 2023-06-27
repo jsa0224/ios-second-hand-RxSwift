@@ -51,7 +51,7 @@ final class CoreDataManager: CoreDataManageable {
 
     private func generateRequest(by isAddCart: Bool) -> NSFetchRequest<ItemDAO> {
         let request: NSFetchRequest<ItemDAO> = ItemDAO.fetchRequest()
-        let predicate = NSPredicate(format: "isAddCart == %@", true as CVarArg)
+        let predicate = NSPredicate(format: "isAddCart == %@", isAddCart as NSNumber)
         request.returnsObjectsAsFaults = false
         request.predicate = predicate
         return request

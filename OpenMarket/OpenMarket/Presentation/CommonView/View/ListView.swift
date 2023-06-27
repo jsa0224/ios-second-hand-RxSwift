@@ -1,13 +1,22 @@
 //
-//  ItemView.swift
+//  ListView.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/06/02.
+//  Created by 정선아 on 2023/06/15.
 //
 
 import UIKit
 
-final class ItemView: UIView {
+final class ListView: UIView {
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fill
+        return stackView
+    }()
+
     private(set) var itemImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,23 +29,14 @@ final class ItemView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 4
-        stackView.distribution = .fill
-        return stackView
-    }()
-
-    private let middleStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         return stackView
     }()
 
     private let priceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.spacing = 4
         stackView.distribution = .fill
         return stackView
@@ -52,7 +52,7 @@ final class ItemView: UIView {
     private(set) var priceLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .caption2)
         return label
     }()
 
@@ -63,13 +63,18 @@ final class ItemView: UIView {
         return label
     }()
 
-    private let heartButton: UIButton = {
+    private(set) var stockLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .systemGray
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        return label
+    }()
+
+    private(set) var trashButton: UIButton = {
         let button = UIButton()
-        let heartImage = UIImage(systemName: "heart")
-        let heartFillImage = UIImage(systemName: "heart.fill")
+        let heartImage = UIImage(systemName: "trash")
         button.setImage(heartImage, for: .normal)
-        button.setImage(heartFillImage, for: .selected)
-        button.tintColor = .systemRed
+        button.tintColor = .systemGray3
         button.contentHorizontalAlignment = .right
         return button
     }()
@@ -84,15 +89,17 @@ final class ItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureLayout() {
-        addSubview(itemImageView)
-        addSubview(textStackView)
+    private func configureLayout() {
+        addSubview(mainStackView)
+        mainStackView.addArrangedSubview(itemImageView)
+        mainStackView.addArrangedSubview(textStackView)
+        mainStackView.addArrangedSubview(trashButton)
+
         textStackView.addArrangedSubview(nameLabel)
-        textStackView.addArrangedSubview(middleStackView)
-        middleStackView.addArrangedSubview(priceStackView)
-        middleStackView.addArrangedSubview(heartButton)
+        textStackView.addArrangedSubview(priceStackView)
         priceStackView.addArrangedSubview(priceLabel)
         priceStackView.addArrangedSubview(priceForSaleLabel)
+        priceStackView.addArrangedSubview(stockLabel)
 
         if priceLabel.isHidden {
             priceStackView.removeArrangedSubview(priceLabel)
@@ -100,21 +107,15 @@ final class ItemView: UIView {
         }
 
         NSLayoutConstraint.activate([
-            itemImageView.topAnchor.constraint(equalTo: topAnchor,
-                                               constant: 16),
-            itemImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+            mainStackView.topAnchor.constraint(equalTo: topAnchor,
+                                               constant: 8),
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                constant: 4),
-            itemImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                               constant: -4),
-            itemImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65),
-            textStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor,
-                                               constant: 4),
-            textStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                   constant: 8),
-            textStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                    constant: -8),
-            textStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                  constant: -4)
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                               constant: -8),
+            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                                  constant: -8),
+            itemImageView.widthAnchor.constraint(equalTo: heightAnchor)
            ])
     }
 }
