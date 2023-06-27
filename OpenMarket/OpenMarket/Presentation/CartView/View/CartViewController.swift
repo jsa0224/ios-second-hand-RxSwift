@@ -133,8 +133,8 @@ final class CartViewController: UIViewController {
                 }
                 .reduce(0.0, +)
             }
-            .map { sum in
-                String(format: "%.2f", sum) + "원"
+            .map { price in
+                price.formatDouble + "원"
             }
             .bind(to: totalPriceLabel.rx.text)
             .disposed(by: disposeBag)

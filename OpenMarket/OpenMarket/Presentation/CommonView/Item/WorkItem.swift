@@ -30,15 +30,15 @@ struct WorkItem {
     }
 
     var price: String {
-        return "\(item.price)원"
+        return item.price.formatDouble + "원"
     }
 
     var discountedPrice: String {
-        return "\(item.discountedPrice)원"
+        return item.discountedPrice.formatDouble + "원"
     }
 
     var bargainPrice: String {
-        return "\(item.bargainPrice)원"
+        return item.bargainPrice.formatDouble + "원"
     }
 
     var stock: String {
@@ -46,7 +46,7 @@ struct WorkItem {
             return "Sold Out"
         }
         
-        return "재고 개수: \(item.stock)"
+        return "재고 개수: " + item.stock.formatInt
     }
 
     var isEmpty: Bool {
