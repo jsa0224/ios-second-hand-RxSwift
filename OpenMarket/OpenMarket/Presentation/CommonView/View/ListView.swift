@@ -70,15 +70,6 @@ final class ListView: UIView {
         return label
     }()
 
-    private(set) var trashButton: UIButton = {
-        let button = UIButton()
-        let heartImage = UIImage(systemName: "trash")
-        button.setImage(heartImage, for: .normal)
-        button.tintColor = .systemGray3
-        button.contentHorizontalAlignment = .right
-        return button
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +84,6 @@ final class ListView: UIView {
         addSubview(mainStackView)
         mainStackView.addArrangedSubview(itemImageView)
         mainStackView.addArrangedSubview(textStackView)
-        mainStackView.addArrangedSubview(trashButton)
 
         textStackView.addArrangedSubview(nameLabel)
         textStackView.addArrangedSubview(priceStackView)
