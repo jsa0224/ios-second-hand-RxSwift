@@ -31,6 +31,7 @@
 		AE6386512A3B0F46004FFD48 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6386502A3B0F46004FFD48 /* ListView.swift */; };
 		AE6386592A3B135C004FFD48 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6386582A3B135C004FFD48 /* ItemTableViewCell.swift */; };
 		AE7DD7D92A491D33005E9E74 /* GridCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7D82A491D33005E9E74 /* GridCellViewModel.swift */; };
+		AE7DD7DF2A4ACCDA005E9E74 /* TotalPriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7DE2A4ACCDA005E9E74 /* TotalPriceLabel.swift */; };
 		AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */; };
 		AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */; };
 		AEA160562A1AF0A0006E7FF5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160552A1AF0A0006E7FF5 /* HomeViewController.swift */; };
@@ -85,6 +86,7 @@
 		AE6386502A3B0F46004FFD48 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		AE6386582A3B135C004FFD48 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		AE7DD7D82A491D33005E9E74 /* GridCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCellViewModel.swift; sourceTree = "<group>"; };
+		AE7DD7DE2A4ACCDA005E9E74 /* TotalPriceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceLabel.swift; sourceTree = "<group>"; };
 		AEA1604E2A1AF0A0006E7FF5 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		AE579A772A30640000877F3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AE7DD7DD2A4ACCB7005E9E74 /* Label */,
 				AE18215C2A29BAFF0087ABC8 /* GridView.swift */,
 				AE6386502A3B0F46004FFD48 /* ListView.swift */,
 			);
@@ -298,6 +301,14 @@
 				AE579A832A30A03800877F3B /* TableViewCellViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AE7DD7DD2A4ACCB7005E9E74 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DD7DE2A4ACCDA005E9E74 /* TotalPriceLabel.swift */,
+			);
+			path = Label;
 			sourceTree = "<group>";
 		};
 		AEA160452A1AF0A0006E7FF5 = {
@@ -629,6 +640,7 @@
 				AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */,
 				AE6386462A380BCD004FFD48 /* AlertManager.swift in Sources */,
 				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
+				AE7DD7DF2A4ACCDA005E9E74 /* TotalPriceLabel.swift in Sources */,
 				AE6386332A30CAAD004FFD48 /* Reactive.swift in Sources */,
 				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,
 				AE7DD7D92A491D33005E9E74 /* GridCellViewModel.swift in Sources */,

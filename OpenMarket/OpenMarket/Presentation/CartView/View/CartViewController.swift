@@ -26,6 +26,33 @@ final class CartViewController: UIViewController {
 
         return cell
     }
+    private let priceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        stackView.distribution = .equalSpacing
+        stackView.layer.cornerRadius = 8
+        stackView.layer.borderWidth = 2
+        stackView.layer.borderColor = UIColor(named: "selectedColor")?.cgColor
+        return stackView
+    }()
+
+    private let textLabel: TotalPriceLabel = {
+        let label = TotalPriceLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.textAlignment = .left
+        return label
+    }()
+
+    private let totalPriceLabel: TotalPriceLabel = {
+        let label = TotalPriceLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textAlignment = .right
+        return label
+    }()
 
     init(viewModel: CartViewModel, disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
@@ -53,12 +80,21 @@ final class CartViewController: UIViewController {
         tableView.register(ItemTableViewCell.self,
                            forCellReuseIdentifier: ItemTableViewCell.identifier)
         self.view.addSubview(tableView)
+        self.view.addSubview(priceStackView)
+        priceStackView.addArrangedSubview(textLabel)
+        priceStackView.addArrangedSubview(totalPriceLabel)
+
+        textLabel.text = "Total Price:"
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            priceStackView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
+            priceStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            priceStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            priceStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            priceStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.1)
         ])
     }
 
@@ -87,6 +123,20 @@ final class CartViewController: UIViewController {
                 [ItemSection(items: item)]
             }
             .bind(to: tableView.rx.items(dataSource: itemListDataSource))
+            .disposed(by: disposeBag)
+
+        output.itemList
+            .withUnretained(self)
+            .map { owner, item in
+                item.compactMap {
+                    $0.bargainPrice
+                }
+                .reduce(0.0, +)
+            }
+            .map { sum in
+                String(format: "%.2f", sum) + "원"
+            }
+            .bind(to: totalPriceLabel.rx.text)
             .disposed(by: disposeBag)
 
         output.deleteAlertAction
