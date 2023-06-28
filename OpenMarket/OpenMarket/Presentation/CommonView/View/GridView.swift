@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ItemView: UIView {
+final class GridView: UIView {
     private(set) var itemImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +84,7 @@ final class ItemView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureLayout() {
+    private func configureLayout() {
         addSubview(itemImageView)
         addSubview(textStackView)
         textStackView.addArrangedSubview(nameLabel)

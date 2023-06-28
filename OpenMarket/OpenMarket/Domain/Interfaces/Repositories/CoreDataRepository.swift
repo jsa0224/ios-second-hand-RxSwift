@@ -12,6 +12,7 @@ protocol CoreDataRepository {
     func save(_ item: Item)
     func fetchItemList() -> Observable<[Item]> 
     func fetchItem(with id: Int) -> Observable<Item>
+    func fetchItem(with isAddCart: Bool) -> Observable<[Item]>
     func update(_ item: Item)
     func delete(_ item: Item)
 }

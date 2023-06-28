@@ -30,6 +30,13 @@ final class ItemDetailRepository: CoreDataRepository {
             .map { $0.toDomain() }
     }
 
+    func fetchItem(with isAddCart: Bool) -> Observable<[Item]> {
+        return coreDataManager.fetch(to: isAddCart)
+            .map {
+                $0.map { $0.toDomain() }
+            }
+    }
+
     func update(_ item: Item) {
         coreDataManager.update(with: item)
     }

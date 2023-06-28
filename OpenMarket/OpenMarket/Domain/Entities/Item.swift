@@ -17,3 +17,5 @@ struct Item {
     var favorites: Bool
     var isAddCart: Bool
 }
+
+extension Item: Equatable { }
