@@ -34,6 +34,7 @@
 		AE7DD7DF2A4ACCDA005E9E74 /* TotalPriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7DE2A4ACCDA005E9E74 /* TotalPriceLabel.swift */; };
 		AE7DD7E12A4ACE95005E9E74 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7E02A4ACE95005E9E74 /* Int.swift */; };
 		AE7DD7E32A4ACEB2005E9E74 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7E22A4ACEB2005E9E74 /* Double.swift */; };
+		AE7DD7E52A4AD1F6005E9E74 /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7E42A4AD1F6005E9E74 /* PriceView.swift */; };
 		AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */; };
 		AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */; };
 		AEA160562A1AF0A0006E7FF5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160552A1AF0A0006E7FF5 /* HomeViewController.swift */; };
@@ -91,6 +92,7 @@
 		AE7DD7DE2A4ACCDA005E9E74 /* TotalPriceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceLabel.swift; sourceTree = "<group>"; };
 		AE7DD7E02A4ACE95005E9E74 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		AE7DD7E22A4ACEB2005E9E74 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		AE7DD7E42A4AD1F6005E9E74 /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
 		AEA1604E2A1AF0A0006E7FF5 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				AE63864C2A3AA04F004FFD48 /* CartViewController.swift */,
+				AE7DD7E42A4AD1F6005E9E74 /* PriceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				AE63864D2A3AA04F004FFD48 /* CartViewController.swift in Sources */,
 				AEA160E12A204F65006E7FF5 /* ItemListUseCase.swift in Sources */,
 				AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */,
+				AE7DD7E52A4AD1F6005E9E74 /* PriceView.swift in Sources */,
 				AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */,
 				AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */,
 				AEA160692A1AF166006E7FF5 /* TabBarViewController.swift in Sources */,

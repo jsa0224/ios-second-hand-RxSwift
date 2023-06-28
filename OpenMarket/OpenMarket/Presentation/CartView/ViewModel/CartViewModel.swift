@@ -11,13 +11,13 @@ import RxSwift
 final class CartViewModel {
     struct Input {
         let didShowView: Observable<Void>
-        let didTapDeleteButton: Observable<AlertActionType>
-        let deletedItem: Observable<Item>
+        let didTapDeleteButton: Observable<(AlertActionType, Item)>
+        let deletedAlertAction: Observable<IndexPath>
     }
 
     struct Output {
         var itemList: Observable<[Item]>
-        let deleteAlertAction: Observable<AlertActionType>
+        let deleteAlertAction: Observable<(AlertActionType, IndexPath)>
     }
 
     private let itemUseCase: ItemUseCaseType
@@ -35,20 +35,25 @@ final class CartViewModel {
                     .fetch(with: true)
             }
 
-        let deleteAlertAction = input.didTapDeleteButton
+        let deleteAlertActionType = input.didTapDeleteButton
             .withUnretained(self)
-            .map { owner, action in
-                if action == .delete {
-                    input.deletedItem
-                        .map {
-                            owner
-                                .itemUseCase
-                                .delete($0)
-                        }
+            .map { owner, input in
+                if input.0 == .delete {
+                    owner
+                        .itemUseCase
+                        .delete(input.1)
                 }
 
-                return action
+                return input.0
             }
+
+        let indexPath = input.deletedAlertAction
+            .withUnretained(self)
+            .map { owner, indexPath in
+                return indexPath
+            }
+
+        let deleteAlertAction = Observable.zip(deleteAlertActionType, indexPath)
 
         return Output(itemList: itemList,
                       deleteAlertAction: deleteAlertAction)

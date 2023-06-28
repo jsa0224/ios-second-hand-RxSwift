@@ -26,33 +26,8 @@ final class CartViewController: UIViewController {
 
         return cell
     }
-    private let priceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.distribution = .equalSpacing
-        stackView.layer.cornerRadius = 8
-        stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor(named: "selectedColor")?.cgColor
-        return stackView
-    }()
-
-    private let textLabel: TotalPriceLabel = {
-        let label = TotalPriceLabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.textAlignment = .left
-        return label
-    }()
-
-    private let totalPriceLabel: TotalPriceLabel = {
-        let label = TotalPriceLabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textAlignment = .right
-        return label
-    }()
+    private var tableViewItemSubject = BehaviorSubject<[ItemSection]>(value: [])
+    private let priceView = PriceView()
 
     init(viewModel: CartViewModel, disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
@@ -80,21 +55,20 @@ final class CartViewController: UIViewController {
         tableView.register(ItemTableViewCell.self,
                            forCellReuseIdentifier: ItemTableViewCell.identifier)
         self.view.addSubview(tableView)
-        self.view.addSubview(priceStackView)
-        priceStackView.addArrangedSubview(textLabel)
-        priceStackView.addArrangedSubview(totalPriceLabel)
+        self.view.addSubview(priceView)
 
-        textLabel.text = "Total Price:"
+        priceView.priceTextLabel.text = "Price:"
+        priceView.priceForSaleTextLabel.text = "Discounted Price:"
+        priceView.totalTextLabel.text = "Total Price:"
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            priceStackView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
-            priceStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            priceStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            priceStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            priceStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.1)
+            priceView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
+            priceView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            priceView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            priceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
 
@@ -109,11 +83,21 @@ final class CartViewController: UIViewController {
             .withUnretained(self)
             .map { owner, indexPath in
                 var sectionArray = owner.itemListDataSource.sectionModels
-                var section = sectionArray.remove(at: indexPath.row)
-                return section.items.remove(at: indexPath.row)
+                var section = sectionArray[indexPath.section]
+                let item = section.items.remove(at: indexPath.row)
+                sectionArray[indexPath.section] = section
+                return item
+            }
+        let deleteAndDeletedItem = Observable.zip(deleteAction, deletedItem)
+        let deletedAlertAction = tableView.rx.itemDeleted
+            .withUnretained(self)
+            .map { owner, indexPath in
+               return indexPath
             }
 
-        let input = CartViewModel.Input(didShowView: didShowView, didTapDeleteButton: deleteAction, deletedItem: deletedItem)
+        let input = CartViewModel.Input(didShowView: didShowView,
+                                        didTapDeleteButton: deleteAndDeletedItem,
+                                        deletedAlertAction: deletedAlertAction)
         let output = viewModel.transform(input)
 
         output
@@ -122,7 +106,40 @@ final class CartViewController: UIViewController {
             .map { owner, item in
                 [ItemSection(items: item)]
             }
-            .bind(to: tableView.rx.items(dataSource: itemListDataSource))
+            .bind(to: tableViewItemSubject)
+            .disposed(by: disposeBag)
+
+        tableViewItemSubject
+            .distinctUntilChanged()
+            .bind(to: self.tableView.rx.items(dataSource: itemListDataSource))
+            .disposed(by: self.disposeBag)
+
+        output.itemList
+            .withUnretained(self)
+            .map { owner, item in
+                item.compactMap {
+                    $0.price
+                }
+                .reduce(0.0, +)
+            }
+            .map { price in
+                price.formatDouble + "원"
+            }
+            .bind(to: priceView.priceLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        output.itemList
+            .withUnretained(self)
+            .map { owner, item in
+                item.compactMap {
+                    $0.discountedPrice
+                }
+                .reduce(0.0, +)
+            }
+            .map { price in
+                "-" + price.formatDouble + "원"
+            }
+            .bind(to: priceView.priceForSaleLabel.rx.text)
             .disposed(by: disposeBag)
 
         output.itemList
@@ -136,22 +153,24 @@ final class CartViewController: UIViewController {
             .map { price in
                 price.formatDouble + "원"
             }
-            .bind(to: totalPriceLabel.rx.text)
+            .bind(to: priceView.totalPriceLabel.rx.text)
             .disposed(by: disposeBag)
 
         output.deleteAlertAction
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind(onNext: { owner, action in
-                switch action {
+            .bind(onNext: { owner, output in
+                switch output.0 {
                 case .delete:
+                    guard var section = try? self.tableViewItemSubject.value() else { return }
+                    section[output.1.section].items.remove(at: output.1.item)
+                    owner.tableViewItemSubject.onNext(section)
                     owner.tableView.reloadData()
                 default:
                     break
                 }
             })
             .disposed(by: disposeBag)
-
     }
 
     private enum Namespace {
