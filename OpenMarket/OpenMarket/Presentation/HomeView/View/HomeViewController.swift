@@ -63,7 +63,7 @@ final class HomeViewController: UIViewController {
 
         let input = HomeViewModel.Input(didShowView: didShowView,
                                         didScrollBottom: didScrollBottom)
-        let output = viewModel.transform(input)
+        let output = viewModel.transform(input, disposeBag)
 
         output
             .itemList
