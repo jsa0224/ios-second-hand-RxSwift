@@ -49,6 +49,14 @@ final class CoreDataManager: CoreDataManageable {
         return request
     }
 
+    private func generateRequest(with favorites: Bool) -> NSFetchRequest<ItemDAO> {
+        let request: NSFetchRequest<ItemDAO> = ItemDAO.fetchRequest()
+        let predicate = NSPredicate(format: "favorites == %@", favorites as NSNumber)
+        request.returnsObjectsAsFaults = false
+        request.predicate = predicate
+        return request
+    }
+
     private func generateRequest(by isAddCart: Bool) -> NSFetchRequest<ItemDAO> {
         let request: NSFetchRequest<ItemDAO> = ItemDAO.fetchRequest()
         let predicate = NSPredicate(format: "isAddCart == %@", isAddCart as NSNumber)
@@ -96,12 +104,12 @@ final class CoreDataManager: CoreDataManageable {
         saveContext()
     }
 
-    func fetch(with id: Int) -> Observable<ItemDAO> {
+    func fetch(with id: Int) -> Observable<ItemDAO?> {
         return Observable.create { [weak self] emitter in
             guard let request = self?.generateRequest(by: id),
                   let fetchResult = self?.fetchResult(from: request)
             else {
-                emitter.onError(CoreDataError.readFail)
+                emitter.onNext(nil)
                 return Disposables.create()
             }
 
@@ -115,6 +123,22 @@ final class CoreDataManager: CoreDataManageable {
     func fetch(to isAddCart: Bool) -> Observable<[ItemDAO]> {
         return Observable.create { [weak self] emitter in
             guard let request = self?.generateRequest(by: isAddCart),
+                  let fetchResult = try? self?.context.fetch(request)
+            else {
+                emitter.onError(CoreDataError.readFail)
+                return Disposables.create()
+            }
+
+            emitter.onNext(fetchResult)
+            emitter.onCompleted()
+
+            return Disposables.create()
+        }
+    }
+
+    func fetch(with favorites: Bool) -> Observable<[ItemDAO]> {
+        return Observable.create { [weak self] emitter in
+            guard let request = self?.generateRequest(with: favorites),
                   let fetchResult = try? self?.context.fetch(request)
             else {
                 emitter.onError(CoreDataError.readFail)

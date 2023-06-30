@@ -56,6 +56,10 @@ final class ItemRepository: NetworkRepository {
 
         return networkManager
                 .executeProductImage(endpoint: endpoint)
-                .map { UIImage(data: $0) ?? UIImage() }
+                .map {
+                    let image = UIImage(data: $0) ?? UIImage()
+                    ImageCacheManager.shared.setObject(image, forKey: cachedKey)
+                    return image
+                }
     }
 }

@@ -60,6 +60,7 @@ final class HomeViewController: UIViewController {
         let didShowView = self.rx.viewWillAppear.asObservable()
         let didScrollBottom = collectionView.rx.prefetchItems
             .map { $0.last?.row }
+     
 
         let input = HomeViewModel.Input(didShowView: didShowView,
                                         didScrollBottom: didScrollBottom)
