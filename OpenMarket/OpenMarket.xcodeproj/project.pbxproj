@@ -37,6 +37,8 @@
 		AE7DD7EE2A4E9DD0005E9E74 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7ED2A4E9DD0005E9E74 /* FavoriteViewController.swift */; };
 		AE7DD7F42A519A9F005E9E74 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7F32A519A9F005E9E74 /* Int.swift */; };
 		AE7DD7F62A519B04005E9E74 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7F52A519B04005E9E74 /* Double.swift */; };
+		AE7DD7FB2A519CBB005E9E74 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7FA2A519CBB005E9E74 /* SearchViewModel.swift */; };
+		AE7DD7FD2A519CCB005E9E74 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7DD7FC2A519CCB005E9E74 /* SearchViewController.swift */; };
 		AEA160522A1AF0A0006E7FF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */; };
 		AEA160542A1AF0A0006E7FF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */; };
 		AEA160562A1AF0A0006E7FF5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160552A1AF0A0006E7FF5 /* HomeViewController.swift */; };
@@ -97,6 +99,8 @@
 		AE7DD7ED2A4E9DD0005E9E74 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		AE7DD7F32A519A9F005E9E74 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		AE7DD7F52A519B04005E9E74 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		AE7DD7FA2A519CBB005E9E74 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		AE7DD7FC2A519CCB005E9E74 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		AEA1604E2A1AF0A0006E7FF5 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA160512A1AF0A0006E7FF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA160532A1AF0A0006E7FF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -355,6 +359,31 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		AE7DD7F72A519C83005E9E74 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DD7F92A519CA6005E9E74 /* ViewModel */,
+				AE7DD7F82A519CA1005E9E74 /* View */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		AE7DD7F82A519CA1005E9E74 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DD7FC2A519CCB005E9E74 /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AE7DD7F92A519CA6005E9E74 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DD7FA2A519CBB005E9E74 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		AEA160452A1AF0A0006E7FF5 = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +429,7 @@
 				AE18215B2A29BADA0087ABC8 /* CommonView */,
 				AE1821572A29B5DF0087ABC8 /* TabBarView */,
 				AE1821582A29B5F50087ABC8 /* HomeView */,
+				AE7DD7F72A519C83005E9E74 /* SearchView */,
 				AE6386342A36EB5C004FFD48 /* DetailView */,
 				AE6386492A3AA023004FFD48 /* CartView */,
 				AE7DD7E82A4E9D7C005E9E74 /* FavoriteView */,
@@ -694,6 +724,7 @@
 				AE6386332A30CAAD004FFD48 /* Reactive.swift in Sources */,
 				AEA1608E2A1B0B8F006E7FF5 /* ProductForm.swift in Sources */,
 				AE7DD7D92A491D33005E9E74 /* GridCellViewModel.swift in Sources */,
+				AE7DD7FD2A519CCB005E9E74 /* SearchViewController.swift in Sources */,
 				AE579A7A2A30642700877F3B /* WorkItem.swift in Sources */,
 				AE7DD7EE2A4E9DD0005E9E74 /* FavoriteViewController.swift in Sources */,
 				AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */,
@@ -702,6 +733,7 @@
 				AE63863F2A36EF23004FFD48 /* DetailView.swift in Sources */,
 				AEA160E72A211C7E006E7FF5 /* ImageUseCase.swift in Sources */,
 				AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */,
+				AE7DD7FB2A519CBB005E9E74 /* SearchViewModel.swift in Sources */,
 				AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */,
 				AE18215D2A29BAFF0087ABC8 /* GridView.swift in Sources */,
 				AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */,

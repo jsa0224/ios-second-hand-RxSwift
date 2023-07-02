@@ -26,6 +26,15 @@ final class HomeViewController: UIViewController {
 
         return cell
     }
+    private let searchButton: UIBarButtonItem = {
+        let searchImage = UIImage(systemName: "magnifyingglass.circle")
+        let barButtonItem = UIBarButtonItem(image: searchImage,
+                                            style: .plain,
+                                            target: nil,
+                                            action: nil)
+        barButtonItem.tintColor = UIColor(named: "selectedColor")
+        return barButtonItem
+    }()
 
     init(viewModel: HomeViewModel, disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
@@ -49,6 +58,7 @@ final class HomeViewController: UIViewController {
         let image = UIImage(named: "SecondHand")
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
+        navigationItem.rightBarButtonItem = searchButton
         self.view.backgroundColor = .white
     }
 
@@ -93,6 +103,20 @@ final class HomeViewController: UIViewController {
                 owner.navigationController?.pushViewController(detailViewController,
                                                                animated: true)
             })
+            .disposed(by: disposeBag)
+
+        searchButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind { owner, _ in
+                let networkManager = ItemNetworkManager()
+                let itemRepository = ItemRepository(networkManager: networkManager)
+                let itemListUseCase = ItemListUseCase(itemListRepository: itemRepository)
+                let searchViewModel = SearchViewModel(itemListUseCase: itemListUseCase)
+                let searchViewController = SearchViewController(viewModel: searchViewModel)
+                owner.navigationController?.pushViewController(searchViewController,
+                                                               animated: true)
+            }
             .disposed(by: disposeBag)
     }
 
