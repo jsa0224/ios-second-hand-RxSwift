@@ -9,19 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
     private let detailView = DetailView()
     private var disposeBag = DisposeBag()
-    private let addCartButton: UIBarButtonItem = {
-        let cartImage = UIImage(systemName: "cart.fill")
-        let barButtonItem = UIBarButtonItem(image: cartImage,
-                                            style: .plain,
-                                            target: nil,
-                                            action: nil)
-        barButtonItem.tintColor = .black
-        return barButtonItem
-    }()
 
     init(viewModel: DetailViewModel, disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
@@ -40,8 +31,6 @@ class DetailViewController: UIViewController {
     }
 
     private func configureUI() {
-        navigationItem.rightBarButtonItem = addCartButton
-
         view.backgroundColor = .white
         view.addSubview(detailView)
 
@@ -74,8 +63,27 @@ class DetailViewController: UIViewController {
                         true)
             }
 
+        let didShowFavoriteButton = Observable.just(viewModel.item.id)
+
+        let didTapFavoriteButton = detailView.heartButton.rx.tap
+            .withUnretained(self)
+            .map { owner, _ in
+                return (owner.viewModel.item.id,
+                        owner.viewModel.item.name,
+                        owner.viewModel.item.description,
+                        owner.viewModel.item.thumbnail,
+                        owner.viewModel.item.price,
+                        owner.viewModel.item.bargainPrice,
+                        owner.viewModel.item.discountedPrice,
+                        owner.viewModel.item.stock,
+                        true,
+                        owner.viewModel.item.isAddCart)
+            }
+
         let input = DetailViewModel.Input(didShowView: didShowView,
-                                          didTapAddCartButton: didTapAddCartButton)
+                                          didTapAddCartButton: didTapAddCartButton,
+                                          didShowFavoriteButton: didShowFavoriteButton,
+                                          didTapFavoriteButton: didTapFavoriteButton)
         let output = viewModel.transform(input)
 
         output
@@ -92,20 +100,38 @@ class DetailViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.configureAlert()
+                owner.configureAlert(message: "장바구니")
+                owner.tabBarController?.selectedIndex = 2
+            })
+            .disposed(by: disposeBag)
+
+        output
+            .isSelected
+            .observe(on: MainScheduler.instance)
+            .bind(to: detailView.heartButton.rx.isSelected)
+            .disposed(by: disposeBag)
+
+        output
+            .tappedFavoriteButton
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind(onNext: { owner, bool in
+                owner.detailView.heartButton.isSelected = true
+                owner.configureAlert(message: "관심상품")
+                owner.tabBarController?.selectedIndex = 1
             })
             .disposed(by: disposeBag)
     }
 }
 
 extension DetailViewController {
-    func configureAlert() {
+    func configureAlert(message: String) {
         let confirmAction = UIAlertAction(title: "확인",
                                           style: .default)
 
         let alert = AlertManager.shared
             .setType(.alert)
-            .setTitle("장바구니에 등록되었습니다.")
+            .setTitle(message + "에 등록되었습니다.")
             .setActions([confirmAction])
             .apply()
         self.present(alert, animated: true)

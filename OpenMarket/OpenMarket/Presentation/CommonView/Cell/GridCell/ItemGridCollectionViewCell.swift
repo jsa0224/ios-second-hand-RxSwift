@@ -139,17 +139,6 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
             .bind(to: loadingView.rx.isHidden)
             .disposed(by: disposeBag)
 
-//        output?
-//            .workItem
-//            .observe(on: MainScheduler.instance)
-//            .withUnretained(self)
-//            .bind(onNext: { owner, workItem in
-//                if workItem.isFavorite {
-//                    owner.itemView.heartButton.isSelected = true
-//                }
-//            })
-//            .disposed(by: disposeBag)
-
         output?
             .isSelected
             .observe(on: MainScheduler.instance)
