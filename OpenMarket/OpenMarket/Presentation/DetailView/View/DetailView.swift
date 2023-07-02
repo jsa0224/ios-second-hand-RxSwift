@@ -65,7 +65,7 @@ class DetailView: UIView {
         return label
     }()
 
-    private let heartButton: UIButton = {
+    private(set) var heartButton: UIButton = {
         let button = UIButton()
         let heartImage = UIImage(systemName: "heart")
         let heartFillImage = UIImage(systemName: "heart.fill")

@@ -98,7 +98,19 @@ final class SearchViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, item in
-                // TODO: 서치 뷰 상세 페이지 작업
+                let networkManager = ItemNetworkManager()
+                let coreDataManager = CoreDataManager.shared
+                let itemRepository = ItemRepository(networkManager: networkManager)
+                let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+                let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
+                let imageUseCase = ImageUseCase(imageRepository: itemRepository)
+                let detailViewModel = DetailViewModel(itemUseCase: itemUseCase,
+                                                      imageUseCase: imageUseCase,
+                                                      item: item)
+                let detailViewController = DetailViewController(viewModel: detailViewModel
+                )
+                owner.navigationController?.pushViewController(detailViewController,
+                                                               animated: true)
             })
             .disposed(by: disposeBag)
     }
