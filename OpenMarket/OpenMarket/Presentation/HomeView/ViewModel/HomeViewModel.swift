@@ -23,13 +23,12 @@ final class HomeViewModel {
     private var itemSubject = BehaviorRelay<[Item]>(value: [])
     private var pageNo = 1
     private let itemPerPage = 10
-    private let disposeBag = DisposeBag()
 
     init(itemListUseCase: ItemListUseCaseType) {
         self.itemListUseCase = itemListUseCase
     }
 
-    func transform(_ input: Input) -> Output {
+    func transform(_ input: Input, _ disposeBag: DisposeBag) -> Output {
         var itemList: Observable<[Item]> {
             return itemSubject.asObservable()
         }
@@ -52,7 +51,7 @@ final class HomeViewModel {
                         let preItem = owner.itemSubject.value
                         owner.itemSubject.accept(preItem + item)
                     })
-                    .disposed(by: owner.disposeBag)
+                    .disposed(by: disposeBag)
             })
             .disposed(by: disposeBag)
 

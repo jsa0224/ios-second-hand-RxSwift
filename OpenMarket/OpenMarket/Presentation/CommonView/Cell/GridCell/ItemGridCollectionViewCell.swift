@@ -40,6 +40,8 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
         itemView.nameLabel.text = nil
         itemView.priceLabel.text = nil
         itemView.priceForSaleLabel.text = nil
+        let heartImage = UIImage(systemName: "heart")
+        itemView.heartButton.setImage(heartImage, for: .normal)
         loadingView.startAnimating()
         loadingView.isHidden = false
         
@@ -48,12 +50,35 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
 
     func bind(_ item: Item) {
         let networkManager = ItemNetworkManager()
-        let imageRepository = ItemRepository(networkManager: networkManager)
-        let imageUseCase = ImageUseCase(imageRepository: imageRepository)
-        viewModel = GridCellViewModel(imageUseCase: imageUseCase)
+        let coreDataManager = CoreDataManager.shared
+        let itemRepository = ItemRepository(networkManager: networkManager)
+        let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+        let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
+        let imageUseCase = ImageUseCase(imageRepository: itemRepository)
+        viewModel = GridCellViewModel(imageUseCase: imageUseCase,
+                                      itemUseCase: itemUseCase)
 
-        let item: Observable<Item> = Observable.just(item)
-        let input = GridCellViewModel.Input(didShowCell: item)
+        let didShowCell: Observable<Item> = Observable.just(item)
+        let didShowFavoriteButton = Observable.just(item.id)
+        let didTapFavoriteButton = itemView.heartButton.rx.tap
+            .withUnretained(self)
+            .flatMap { owner, _ in
+                return didShowCell.map { item in
+                    return (item.id,
+                            item.name,
+                            item.description,
+                            item.thumbnail,
+                            item.price,
+                            item.bargainPrice,
+                            item.discountedPrice,
+                            item.stock,
+                            true,
+                            item.isAddCart)
+                }
+            }
+        let input = GridCellViewModel.Input(didShowCell: didShowCell,
+                                            didShowFavoriteButton: didShowFavoriteButton,
+                                            didTapFavoriteButton: didTapFavoriteButton)
         let output = viewModel?.transform(input)
 
         output?
@@ -112,6 +137,32 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
             .observe(on: MainScheduler.instance)
             .map { $0.isEmptyThumbnail }
             .bind(to: loadingView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+//        output?
+//            .workItem
+//            .observe(on: MainScheduler.instance)
+//            .withUnretained(self)
+//            .bind(onNext: { owner, workItem in
+//                if workItem.isFavorite {
+//                    owner.itemView.heartButton.isSelected = true
+//                }
+//            })
+//            .disposed(by: disposeBag)
+
+        output?
+            .isSelected
+            .observe(on: MainScheduler.instance)
+            .bind(to: itemView.heartButton.rx.isSelected)
+            .disposed(by: disposeBag)
+
+        output?
+            .tappedFavoriteButton
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind(onNext: { owner, bool in
+                owner.itemView.heartButton.isSelected = true
+            })
             .disposed(by: disposeBag)
 
         if loadingView.isHidden {

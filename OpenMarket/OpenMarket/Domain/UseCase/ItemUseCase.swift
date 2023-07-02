@@ -23,12 +23,16 @@ final class ItemUseCase: ItemUseCaseType {
         return itemRepository.fetchItemList()
     }
 
-    func fetch(with id: Int) -> Observable<Item> {
+    func fetch(with id: Int) -> Observable<Item?> {
         return itemRepository.fetchItem(with: id)
     }
 
     func fetch(with isAddCart: Bool) -> Observable<[Item]> {
         return itemRepository.fetchItem(with: isAddCart)
+    }
+
+    func fetch(by favorites: Bool) -> Observable<[Item]> {
+        return itemRepository.fetchItem(by: true)
     }
 
     func update(_ item: Item) {

@@ -63,13 +63,13 @@ final class GridView: UIView {
         return label
     }()
 
-    private let heartButton: UIButton = {
+    private(set) var heartButton: UIButton = {
         let button = UIButton()
         let heartImage = UIImage(systemName: "heart")
         let heartFillImage = UIImage(systemName: "heart.fill")
-        button.setImage(heartImage, for: .normal)
         button.setImage(heartFillImage, for: .selected)
-        button.tintColor = .systemRed
+        button.setImage(heartImage, for: .normal)
+        button.tintColor = .systemPink
         button.contentHorizontalAlignment = .right
         return button
     }()

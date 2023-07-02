@@ -1,8 +1,8 @@
 //
-//  CartViewController.swift
+//  FavoriteViewController.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/06/15.
+//  Created by 정선아 on 2023/06/30.
 //
 
 import UIKit
@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class CartViewController: UIViewController {
+final class FavoriteViewController: UIViewController {
     typealias DataSource = RxTableViewSectionedReloadDataSource<ItemSection>
 
-    private let viewModel: CartViewModel
+    private let viewModel: FavoriteViewModel
     private var disposeBag = DisposeBag()
     private var tableView = UITableView()
     private var itemListDataSource = DataSource { _, tableView, indexPath, item in
@@ -27,9 +27,8 @@ final class CartViewController: UIViewController {
         return cell
     }
     private var tableViewItemSubject = BehaviorSubject<[ItemSection]>(value: [])
-    private let priceView = PriceView()
 
-    init(viewModel: CartViewModel, disposeBag: DisposeBag = DisposeBag()) {
+    init(viewModel: FavoriteViewModel, disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
         self.disposeBag = disposeBag
         super.init(nibName: nil, bundle: nil)
@@ -55,21 +54,13 @@ final class CartViewController: UIViewController {
         tableView.register(ItemTableViewCell.self,
                            forCellReuseIdentifier: ItemTableViewCell.identifier)
         self.view.addSubview(tableView)
-        self.view.addSubview(priceView)
-
-        priceView.priceTextLabel.text = "Price:"
-        priceView.priceForSaleTextLabel.text = "Discounted Price:"
-        priceView.totalTextLabel.text = "Total Price:"
         tableView.rowHeight = 100
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            priceView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
-            priceView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            priceView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            priceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -96,7 +87,7 @@ final class CartViewController: UIViewController {
                return indexPath
             }
 
-        let input = CartViewModel.Input(didShowView: didShowView,
+        let input = FavoriteViewModel.Input(didShowView: didShowView,
                                         didTapDeleteButton: deleteAndDeletedItem,
                                         deletedAlertAction: deletedAlertAction)
         let output = viewModel.transform(input)
@@ -114,48 +105,6 @@ final class CartViewController: UIViewController {
             .distinctUntilChanged()
             .bind(to: self.tableView.rx.items(dataSource: itemListDataSource))
             .disposed(by: self.disposeBag)
-
-        output.itemList
-            .withUnretained(self)
-            .map { owner, item in
-                item.compactMap {
-                    $0.price
-                }
-                .reduce(0.0, +)
-            }
-            .map { price in
-                price.formatDouble + "원"
-            }
-            .bind(to: priceView.priceLabel.rx.text)
-            .disposed(by: disposeBag)
-
-        output.itemList
-            .withUnretained(self)
-            .map { owner, item in
-                item.compactMap {
-                    $0.discountedPrice
-                }
-                .reduce(0.0, +)
-            }
-            .map { price in
-                "-" + price.formatDouble + "원"
-            }
-            .bind(to: priceView.priceForSaleLabel.rx.text)
-            .disposed(by: disposeBag)
-
-        output.itemList
-            .withUnretained(self)
-            .map { owner, item in
-                item.compactMap {
-                    $0.bargainPrice
-                }
-                .reduce(0.0, +)
-            }
-            .map { price in
-                price.formatDouble + "원"
-            }
-            .bind(to: priceView.totalPriceLabel.rx.text)
-            .disposed(by: disposeBag)
 
         output.deleteAlertAction
             .observe(on: MainScheduler.instance)
@@ -175,15 +124,13 @@ final class CartViewController: UIViewController {
     }
 
     private enum Namespace {
-        static let deleteImage = "trash.circle"
-        static let modifyImage = "arrow.backward"
         static let cancelActionTitle = "취소"
         static let deleteActionTitle = "삭제"
         static let alertTitle = "해당 상품을 장바구니에서 삭제하시겠습니까?"
     }
 }
 
-extension CartViewController {
+extension FavoriteViewController {
     func showDeleteAlert() -> Observable<AlertActionType> {
         return Observable.create { [weak self] emitter in
             let cancelAction = UIAlertAction(title: Namespace.cancelActionTitle,

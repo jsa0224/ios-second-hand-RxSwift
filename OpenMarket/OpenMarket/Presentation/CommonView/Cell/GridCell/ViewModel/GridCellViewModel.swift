@@ -10,17 +10,23 @@ import RxSwift
 
 final class GridCellViewModel {
     struct Input {
-        var didShowCell: Observable<Item>
+        let didShowCell: Observable<Item>
+        let didShowFavoriteButton: Observable<Int>
+        let didTapFavoriteButton: Observable<(Int, String, String, String, Double, Double, Double, Int, Bool, Bool)>
     }
 
     struct Output {
-        var workItem: Observable<WorkItem>
+        let workItem: Observable<WorkItem>
+        let isSelected: Observable<Bool>
+        let tappedFavoriteButton: Observable<Void>
     }
 
     private let imageUseCase: ImageUseCaseType
+    private let itemUseCase: ItemUseCaseType
 
-    init(imageUseCase: ImageUseCaseType) {
+    init(imageUseCase: ImageUseCaseType, itemUseCase: ItemUseCaseType) {
         self.imageUseCase = imageUseCase
+        self.itemUseCase = itemUseCase
     }
 
     func transform(_ input: Input) -> Output {
@@ -36,7 +42,38 @@ final class GridCellViewModel {
                          }
             }
 
-        return Output(workItem: item)
+        let isSelected = input.didShowFavoriteButton
+            .withUnretained(self)
+            .flatMap { owner, id in
+                owner
+                    .itemUseCase
+                    .fetch(with: id)
+            }
+            .map { item in
+                guard let item else { return false }
+                return item.favorites
+            }
+
+        let tappedFavoriteButton = input.didTapFavoriteButton
+            .withUnretained(self)
+            .map { owner, data in
+                let dataToSave = Item(id: data.0,
+                                      stock: data.7,
+                                      name: data.1,
+                                      description: data.2,
+                                      thumbnail: data.3,
+                                      price: data.4,
+                                      bargainPrice: data.5,
+                                      discountedPrice: data.6,
+                                      favorites: data.8,
+                                      isAddCart: data.9)
+                owner.itemUseCase.save(dataToSave)
+            }
+
+
+        return Output(workItem: item,
+                      isSelected: isSelected,
+                      tappedFavoriteButton: tappedFavoriteButton)
     }
 
 }

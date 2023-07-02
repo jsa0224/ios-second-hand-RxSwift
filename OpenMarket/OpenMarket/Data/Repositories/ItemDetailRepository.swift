@@ -25,13 +25,20 @@ final class ItemDetailRepository: CoreDataRepository {
             }
     }
 
-    func fetchItem(with id: Int) -> Observable<Item> {
+    func fetchItem(with id: Int) -> Observable<Item?> {
         return coreDataManager.fetch(with: id)
-            .map { $0.toDomain() }
+            .map { $0?.toDomain() }
     }
 
     func fetchItem(with isAddCart: Bool) -> Observable<[Item]> {
         return coreDataManager.fetch(to: isAddCart)
+            .map {
+                $0.map { $0.toDomain() }
+            }
+    }
+
+    func fetchItem(by favorites: Bool) -> Observable<[Item]> {
+        return coreDataManager.fetch(with: favorites)
             .map {
                 $0.map { $0.toDomain() }
             }

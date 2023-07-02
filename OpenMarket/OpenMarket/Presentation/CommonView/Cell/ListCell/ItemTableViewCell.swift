@@ -144,7 +144,6 @@ final class ItemTableViewCell: UITableViewCell {
         contentView.addSubview(itemView)
 
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 100),
             loadingView.topAnchor.constraint(equalTo: contentView.topAnchor),
             loadingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             loadingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

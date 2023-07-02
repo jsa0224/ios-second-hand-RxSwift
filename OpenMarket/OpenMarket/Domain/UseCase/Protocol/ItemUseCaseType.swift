@@ -11,8 +11,9 @@ import RxSwift
 protocol ItemUseCaseType {
     func save(_ item: Item)
     func fetch() -> Observable<[Item]>
-    func fetch(with id: Int) -> Observable<Item>
+    func fetch(with id: Int) -> Observable<Item?>
     func fetch(with isAddCart: Bool) -> Observable<[Item]>
+    func fetch(by favorites: Bool) -> Observable<[Item]>
     func update(_ item: Item)
     func delete(_ item: Item)
 }

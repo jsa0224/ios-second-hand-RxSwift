@@ -11,8 +11,9 @@ import RxSwift
 protocol CoreDataRepository {
     func save(_ item: Item)
     func fetchItemList() -> Observable<[Item]> 
-    func fetchItem(with id: Int) -> Observable<Item>
+    func fetchItem(with id: Int) -> Observable<Item?>
     func fetchItem(with isAddCart: Bool) -> Observable<[Item]>
+    func fetchItem(by favorites: Bool) -> Observable<[Item]>
     func update(_ item: Item)
     func delete(_ item: Item)
 }
