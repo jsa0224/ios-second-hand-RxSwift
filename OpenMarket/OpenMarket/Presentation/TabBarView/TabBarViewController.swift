@@ -22,8 +22,8 @@ class TabBarViewController: UITabBarController {
         let networkManager = ItemNetworkManager()
         let coreDataManager = CoreDataManager.shared
 
-        let itemListRepository = ItemRepository(networkManager: networkManager)
-        let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+        let itemListRepository = ItemListRepository(networkManager: networkManager)
+        let itemDetailRepository = ItemRepository(coreDataManager: coreDataManager)
 
         let itemListUseCase = ItemListUseCase(itemListRepository: itemListRepository)
         let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)

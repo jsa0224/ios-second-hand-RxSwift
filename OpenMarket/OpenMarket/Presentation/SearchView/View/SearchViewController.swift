@@ -100,8 +100,8 @@ final class SearchViewController: UIViewController {
             .bind(onNext: { owner, item in
                 let networkManager = ItemNetworkManager()
                 let coreDataManager = CoreDataManager.shared
-                let itemRepository = ItemRepository(networkManager: networkManager)
-                let itemDetailRepository = ItemDetailRepository(coreDataManager: coreDataManager)
+                let itemRepository = ItemListRepository(networkManager: networkManager)
+                let itemDetailRepository = ItemRepository(coreDataManager: coreDataManager)
                 let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
                 let imageUseCase = ImageUseCase(imageRepository: itemRepository)
                 let detailViewModel = DetailViewModel(itemUseCase: itemUseCase,

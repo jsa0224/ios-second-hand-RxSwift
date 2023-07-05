@@ -53,7 +53,7 @@
 		AEA160942A1B0D91006E7FF5 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160932A1B0D91006E7FF5 /* CoreDataRepository.swift */; };
 		AEA1609A2A1B4B92006E7FF5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160992A1B4B92006E7FF5 /* Item.swift */; };
 		AEA1609C2A1B4F63006E7FF5 /* ItemForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */; };
-		AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160B82A1B5D64006E7FF5 /* ItemDetailRepository.swift */; };
+		AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */; };
 		AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */; };
 		AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */; };
 		AEA160C12A1B6260006E7FF5 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */; };
@@ -63,7 +63,7 @@
 		AEA160CC2A1C4FE7006E7FF5 /* EndpointStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CB2A1C4FE7006E7FF5 /* EndpointStorage.swift */; };
 		AEA160CE2A1D9A4F006E7FF5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CD2A1D9A4F006E7FF5 /* NetworkError.swift */; };
 		AEA160D02A1D9C2C006E7FF5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */; };
-		AEA160D22A1DA7E2006E7FF5 /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */; };
+		AEA160D22A1DA7E2006E7FF5 /* ItemListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D12A1DA7E2006E7FF5 /* ItemListRepository.swift */; };
 		AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */; };
 		AEA160DD2A204C07006E7FF5 /* ItemListUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */; };
 		AEA160DF2A204C34006E7FF5 /* ItemUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */; };
@@ -118,7 +118,7 @@
 		AEA160932A1B0D91006E7FF5 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		AEA160992A1B4B92006E7FF5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		AEA1609B2A1B4F63006E7FF5 /* ItemForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemForm.swift; sourceTree = "<group>"; };
-		AEA160B82A1B5D64006E7FF5 /* ItemDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailRepository.swift; sourceTree = "<group>"; };
+		AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		AEA160BC2A1B5E5C006E7FF5 /* CoreDataManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManageable.swift; sourceTree = "<group>"; };
 		AEA160BE2A1B5F0B006E7FF5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		AEA160C02A1B6260006E7FF5 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		AEA160CB2A1C4FE7006E7FF5 /* EndpointStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointStorage.swift; sourceTree = "<group>"; };
 		AEA160CD2A1D9A4F006E7FF5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		AEA160CF2A1D9C2C006E7FF5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
+		AEA160D12A1DA7E2006E7FF5 /* ItemListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListRepository.swift; sourceTree = "<group>"; };
 		AEA160D32A1DA84C006E7FF5 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		AEA160DC2A204C07006E7FF5 /* ItemListUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListUseCaseType.swift; sourceTree = "<group>"; };
 		AEA160DE2A204C34006E7FF5 /* ItemUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCase.swift; sourceTree = "<group>"; };
@@ -554,8 +554,8 @@
 		AEA160B72A1B5CE0006E7FF5 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				AEA160D12A1DA7E2006E7FF5 /* ItemRepository.swift */,
-				AEA160B82A1B5D64006E7FF5 /* ItemDetailRepository.swift */,
+				AEA160D12A1DA7E2006E7FF5 /* ItemListRepository.swift */,
+				AEA160B82A1B5D64006E7FF5 /* ItemRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -696,7 +696,7 @@
 				AE7DD7EC2A4E9DBB005E9E74 /* FavoriteViewModel.swift in Sources */,
 				AEA160942A1B0D91006E7FF5 /* CoreDataRepository.swift in Sources */,
 				AE18215A2A29B6340087ABC8 /* HomeViewModel.swift in Sources */,
-				AEA160D22A1DA7E2006E7FF5 /* ItemRepository.swift in Sources */,
+				AEA160D22A1DA7E2006E7FF5 /* ItemListRepository.swift in Sources */,
 				AEA160562A1AF0A0006E7FF5 /* HomeViewController.swift in Sources */,
 				AEA160BD2A1B5E5C006E7FF5 /* CoreDataManageable.swift in Sources */,
 				AEA160BF2A1B5F0B006E7FF5 /* CoreDataManager.swift in Sources */,
@@ -729,7 +729,7 @@
 				AE6386392A36EB93004FFD48 /* DetailViewModel.swift in Sources */,
 				AE579A802A3073E200877F3B /* ItemGridCollectionViewCell.swift in Sources */,
 				AEA160CA2A1C4DED006E7FF5 /* HTTPMethod.swift in Sources */,
-				AEA160B92A1B5D64006E7FF5 /* ItemDetailRepository.swift in Sources */,
+				AEA160B92A1B5D64006E7FF5 /* ItemRepository.swift in Sources */,
 				AE6386462A380BCD004FFD48 /* AlertManager.swift in Sources */,
 				AEA160D42A1DA84C006E7FF5 /* NetworkRepository.swift in Sources */,
 				AE7DD7DF2A4ACCDA005E9E74 /* TotalPriceLabel.swift in Sources */,

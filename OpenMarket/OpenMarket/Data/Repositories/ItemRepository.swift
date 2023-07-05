@@ -1,65 +1,54 @@
 //
-//  ItemRepository.swift
+//  ItemDetailRepository.swift
 //  OpenMarket
 //
-//  Created by 정선아 on 2023/05/24.
+//  Created by 정선아 on 2023/05/22.
 //
 
-import UIKit
 import RxSwift
 
-final class ItemRepository: NetworkRepository {
-    private let networkManager: NetworkManager
+final class ItemRepository: CoreDataRepository {
+    private let coreDataManager: CoreDataManager
 
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
+    init(coreDataManager: CoreDataManager) {
+        self.coreDataManager = coreDataManager
     }
 
-    func fetchItemList(pageNo: Int, itemPerPage: Int) -> Observable<[Item]> {
-        let endpoint = EndpointStorage
-            .searchProduct(pageNo: pageNo, itemPerPage: itemPerPage)
-            .asEndpoint
+    func save(_ item: Item) {
+        coreDataManager.create(with: item)
+    }
 
-        return networkManager.executeProductList(endpoint: endpoint)
-            .decode(type: ProductList.self, decoder: JSONDecoder())
-            .map { response in
-                let product = response.pages 
-
-                return product.compactMap { $0.toDomain() }
+    func fetchItemList() -> Observable<[Item]> {
+        return coreDataManager.fetchAllEntities()
+            .map {
+                $0.map { $0.toDomain() }
             }
     }
 
-    func fetchItemList(searchValue: String) -> Observable<[Item]> {
-        let endpoint = EndpointStorage
-            .searchProductByName(searchValue: searchValue)
-            .asEndpoint
+    func fetchItem(with id: Int) -> Observable<Item?> {
+        return coreDataManager.fetch(with: id)
+            .map { $0?.toDomain() }
+    }
 
-        return networkManager.executeProductList(endpoint: endpoint)
-            .decode(type: ProductList.self, decoder: JSONDecoder())
-            .map { response in
-                let product = response.pages
-
-                return product.compactMap { $0.toDomain() }
+    func fetchItem(with isAddCart: Bool) -> Observable<[Item]> {
+        return coreDataManager.fetch(to: isAddCart)
+            .map {
+                $0.map { $0.toDomain() }
             }
     }
 
-    func fetchImage(url: String) -> Observable<UIImage> {
-        let cachedKey = NSString(string: url)
+    func fetchItem(by favorites: Bool) -> Observable<[Item]> {
+        return coreDataManager.fetch(with: favorites)
+            .map {
+                $0.map { $0.toDomain() }
+            }
+    }
 
-        if let cachedImage = ImageCacheManager.shared.object(forKey: cachedKey) {
-            return Observable.just(cachedImage)
-        }
+    func update(_ item: Item) {
+        coreDataManager.update(with: item)
+    }
 
-        let endpoint = EndpointStorage
-            .searchProductImage(url)
-            .asEndpoint
-
-        return networkManager
-                .executeProductImage(endpoint: endpoint)
-                .map {
-                    let image = UIImage(data: $0) ?? UIImage()
-                    ImageCacheManager.shared.setObject(image, forKey: cachedKey)
-                    return image
-                }
+    func delete(_ item: Item) {
+        coreDataManager.delete(with: item)
     }
 }
