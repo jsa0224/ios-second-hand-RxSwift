@@ -155,7 +155,7 @@ class DetailView: UIView {
 
         NSLayoutConstraint.activate([
             itemImageView.topAnchor.constraint(equalTo: topAnchor,
-                                               constant: 16),
+                                               constant: 4),
             itemImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                constant: 4),
             itemImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
