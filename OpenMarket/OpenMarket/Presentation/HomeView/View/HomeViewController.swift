@@ -27,7 +27,7 @@ final class HomeViewController: UIViewController {
         return cell
     }
     private let blankButton: UIBarButtonItem = {
-        let searchImage = UIImage(systemName: "magnifyingglass.circle")
+        let searchImage = UIImage(systemName: Image.magnifyingGlass)
         let barButtonItem = UIBarButtonItem(image: searchImage,
                                             style: .plain,
                                             target: nil,
@@ -36,12 +36,12 @@ final class HomeViewController: UIViewController {
         return barButtonItem
     }()
     private let searchButton: UIBarButtonItem = {
-        let searchImage = UIImage(systemName: "magnifyingglass.circle")
+        let searchImage = UIImage(systemName: Image.magnifyingGlass)
         let barButtonItem = UIBarButtonItem(image: searchImage,
                                             style: .plain,
                                             target: nil,
                                             action: nil)
-        barButtonItem.tintColor = UIColor(named: "selectedColor")
+        barButtonItem.tintColor = UIColor(named: Color.selected)
         return barButtonItem
     }()
 
@@ -64,7 +64,7 @@ final class HomeViewController: UIViewController {
     }
 
     private func configureUI() {
-        let image = UIImage(named: "SecondHand")
+        let image = UIImage(named: Image.secondHand)
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
         navigationItem.rightBarButtonItem = searchButton
@@ -130,27 +130,38 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    private enum Layout {
-        static let spacing: CGFloat = 8
+    private enum ItemSize {
         static let fractionalWidth: CGFloat = 0.5
         static let fractionalHeight: CGFloat = 1.0
-        static let groupSizeFractionalHeight: CGFloat = 0.3
+    }
+
+    private enum GroupSize {
+        static let fractionalWidth: CGFloat = 1.0
+        static let fractionalHeight: CGFloat = 0.3
+    }
+
+    private enum Group {
+        static let count = 2
+    }
+
+    private enum Layout {
+        static let spacing: CGFloat = 8
         static let contentInsets: CGFloat = 10
     }
 }
 
 extension HomeViewController {
     private func createGridLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Layout.fractionalWidth),
-                                              heightDimension: .fractionalHeight(Layout.fractionalHeight))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(ItemSize.fractionalWidth),
+                                              heightDimension: .fractionalHeight(ItemSize.fractionalHeight))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalHeight(Layout.groupSizeFractionalHeight))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(GroupSize.fractionalWidth),
+                                               heightDimension: .fractionalHeight(GroupSize.fractionalHeight))
 
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        repeatingSubitem: item,
-                                                       count: 2)
+                                                       count: Group.count)
         group.interItemSpacing = .fixed(Layout.spacing)
 
         let section = NSCollectionLayoutSection(group: group)
@@ -172,7 +183,7 @@ extension HomeViewController {
         }
 
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = UIColor(named: "mainColor")
+        collectionView.backgroundColor = UIColor(named: Color.main)
         self.view.addSubview(collectionView)
     }
 

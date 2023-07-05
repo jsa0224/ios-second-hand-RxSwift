@@ -8,15 +8,15 @@
 import UIKit
 
 final class TotalPriceLabel: UILabel {
-    private var padding = UIEdgeInsets(top: Layout.textContainerInsetTop,
-                                       left: Layout.textContainerInsetLeft,
-                                       bottom: Layout.textContainerInsetBottom,
-                                       right: Layout.textContainerInsetRight)
+    private var padding = UIEdgeInsets(top: TextContainerInsetLayout.top,
+                                       left: TextContainerInsetLayout.left,
+                                       bottom: TextContainerInsetLayout.bottom,
+                                       right: TextContainerInsetLayout.right)
 
     convenience init(padding: UIEdgeInsets = UIEdgeInsets(top: .zero,
-                                                          left: Layout.textContainerInsetLeft,
+                                                          left: TextContainerInsetLayout.left,
                                                           bottom: .zero,
-                                                          right: Layout.textContainerInsetRight)) {
+                                                          right: TextContainerInsetLayout.right)) {
         self.init()
         self.padding = padding
     }
@@ -33,10 +33,10 @@ final class TotalPriceLabel: UILabel {
         return contentSize
     }
 
-    private enum Layout {
-        static let textContainerInsetTop: CGFloat = 8
-        static let textContainerInsetLeft: CGFloat = 8
-        static let textContainerInsetRight: CGFloat = 8
-        static let textContainerInsetBottom: CGFloat = 8
+    private enum TextContainerInsetLayout {
+        static let top: CGFloat = 8
+        static let left: CGFloat = 8
+        static let right: CGFloat = 8
+        static let bottom: CGFloat = 8
     }
 }

@@ -9,10 +9,21 @@ import Foundation
 import RxSwift
 
 final class GridCellViewModel {
+    typealias ItemData = (id: Int,
+                      name: String,
+                      description: String,
+                      thumbnail: String,
+                      price: Double,
+                      bargainPrice: Double,
+                      discountedPrice: Double,
+                      stock: Int,
+                      favorite: Bool,
+                      isAddCart: Bool)
+
     struct Input {
         let didShowCell: Observable<Item>
         let didShowFavoriteButton: Observable<Int>
-        let didTapFavoriteButton: Observable<(Int, String, String, String, Double, Double, Double, Int, Bool, Bool)>
+        let didTapFavoriteButton: Observable<ItemData>
     }
 
     struct Output {
@@ -57,16 +68,16 @@ final class GridCellViewModel {
         let tappedFavoriteButton = input.didTapFavoriteButton
             .withUnretained(self)
             .map { owner, data in
-                let dataToSave = Item(id: data.0,
-                                      stock: data.7,
-                                      name: data.1,
-                                      description: data.2,
-                                      thumbnail: data.3,
-                                      price: data.4,
-                                      bargainPrice: data.5,
-                                      discountedPrice: data.6,
-                                      favorites: data.8,
-                                      isAddCart: data.9)
+                let dataToSave = Item(id: data.id,
+                                      stock: data.stock,
+                                      name: data.name,
+                                      description: data.description,
+                                      thumbnail: data.thumbnail,
+                                      price: data.price,
+                                      bargainPrice: data.bargainPrice,
+                                      discountedPrice: data.discountedPrice,
+                                      favorites: data.favorite,
+                                      isAddCart: data.isAddCart)
                 owner.itemUseCase.save(dataToSave)
             }
 

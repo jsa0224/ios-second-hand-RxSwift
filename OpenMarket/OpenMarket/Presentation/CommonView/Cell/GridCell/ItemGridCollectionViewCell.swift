@@ -64,16 +64,16 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
             .withUnretained(self)
             .flatMap { owner, _ in
                 return didShowCell.map { item in
-                    return (item.id,
-                            item.name,
-                            item.description,
-                            item.thumbnail,
-                            item.price,
-                            item.bargainPrice,
-                            item.discountedPrice,
-                            item.stock,
-                            true,
-                            item.isAddCart)
+                    return (id: item.id,
+                            name: item.name,
+                            description: item.description,
+                            thumbnail: item.thumbnail,
+                            price: item.price,
+                            bargainPrice: item.bargainPrice,
+                            discountedPrice: item.discountedPrice,
+                            stock: item.stock,
+                            favorite: true,
+                            isAddCart: item.isAddCart)
                 }
             }
         let input = GridCellViewModel.Input(didShowCell: didShowCell,
@@ -175,8 +175,12 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
         ])
 
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 16
+        contentView.layer.cornerRadius = ContentViewLayout.cornerRadius
         contentView.clipsToBounds = true
         contentView.systemLayoutSizeFitting(.init(width: self.bounds.width, height: self.bounds.height))
+    }
+
+    private enum ContentViewLayout {
+        static let cornerRadius: CGFloat = 16
     }
 }

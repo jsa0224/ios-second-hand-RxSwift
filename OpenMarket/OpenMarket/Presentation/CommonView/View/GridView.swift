@@ -19,7 +19,7 @@ final class GridView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .fill
         return stackView
     }()
@@ -28,7 +28,7 @@ final class GridView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .fill
         return stackView
     }()
@@ -37,7 +37,7 @@ final class GridView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .fill
         return stackView
     }()
@@ -45,7 +45,7 @@ final class GridView: UIView {
     private(set) var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.numberOfLines = 2
+        label.numberOfLines = Layout.numberOfLines
         return label
     }()
 
@@ -65,8 +65,8 @@ final class GridView: UIView {
 
     private(set) var favoriteButton: UIButton = {
         let button = UIButton()
-        let heartImage = UIImage(systemName: "heart")
-        let heartFillImage = UIImage(systemName: "heart.fill")
+        let heartImage = UIImage(systemName: Image.heart)
+        let heartFillImage = UIImage(systemName: Image.heartFill)
         button.setImage(heartFillImage, for: .selected)
         button.setImage(heartImage, for: .normal)
         button.tintColor = .systemPink
@@ -101,20 +101,40 @@ final class GridView: UIView {
 
         NSLayoutConstraint.activate([
             itemImageView.topAnchor.constraint(equalTo: topAnchor,
-                                               constant: 16),
+                                               constant: Layout.itemImageViewTopAnchor),
             itemImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                               constant: 4),
+                                                   constant: ItemImageViewLayout.leadingAnchor),
             itemImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                               constant: -4),
-            itemImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65),
+                                                    constant: ItemImageViewLayout.trailingAnchor),
+            itemImageView.heightAnchor.constraint(equalTo: heightAnchor,
+                                                  multiplier: ItemImageViewLayout.heightAnchorMultiplier),
             textStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor,
-                                               constant: 4),
+                                               constant: TextStackViewLayout.topAnchor),
             textStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                   constant: 8),
+                                                   constant: TextStackViewLayout.leadingAnchor),
             textStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                    constant: -8),
+                                                    constant: TextStackViewLayout.trailingAnchor),
             textStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                  constant: -4)
+                                                  constant: TextStackViewLayout.bottomAnchor)
            ])
+    }
+
+    private enum Layout {
+        static let spacing: CGFloat = 4
+        static let numberOfLines: Int = 2
+        static let itemImageViewTopAnchor: CGFloat = 16
+    }
+
+    private enum ItemImageViewLayout {
+        static let leadingAnchor: CGFloat = 4
+        static let trailingAnchor: CGFloat = -4
+        static let heightAnchorMultiplier: CGFloat = 0.65
+    }
+
+    private enum TextStackViewLayout {
+        static let topAnchor: CGFloat = 4
+        static let leadingAnchor: CGFloat = 8
+        static let trailingAnchor: CGFloat = -8
+        static let bottomAnchor: CGFloat = -4
     }
 }

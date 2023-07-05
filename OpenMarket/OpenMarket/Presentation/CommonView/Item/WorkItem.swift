@@ -30,27 +30,27 @@ struct WorkItem {
     }
 
     var price: String {
-        return item.price.formatDouble + "원"
+        return item.price.formatDouble + Description.monetaryUnit
     }
 
     var discountedPrice: String {
-        return item.discountedPrice.formatDouble + "원"
+        return item.discountedPrice.formatDouble + Description.monetaryUnit
     }
 
     var bargainPrice: String {
-        return item.bargainPrice.formatDouble + "원"
+        return item.bargainPrice.formatDouble + Description.monetaryUnit
     }
 
     var stock: String {
         if isEmpty {
-            return "Sold Out"
+            return Namespace.soldOut
         }
         
-        return "재고 개수: " + item.stock.formatInt
+        return Namespace.stockCount + item.stock.formatInt
     }
 
     var isEmpty: Bool {
-        return item.stock == 0
+        return item.stock == Namespace.zero
     }
 
     var stockColor: UIColor {
@@ -83,7 +83,7 @@ struct WorkItem {
 
             attribute.addAttribute(NSAttributedString.Key.strikethroughStyle,
                                    value: NSUnderlineStyle.single.rawValue,
-                                   range: NSMakeRange(0, attribute.length))
+                                   range: NSMakeRange(Namespace.zero, attribute.length))
 
             return attribute
         }
@@ -93,5 +93,11 @@ struct WorkItem {
 
     var isEmptyThumbnail: Bool {
         return thumbnail != nil
+    }
+
+    private enum Namespace {
+        static let soldOut = "Sold Out"
+        static let stockCount = "재고 개수: "
+        static let zero = 0
     }
 }

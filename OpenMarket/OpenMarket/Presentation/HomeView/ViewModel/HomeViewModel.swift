@@ -42,10 +42,10 @@ final class HomeViewModel {
             .bind(to: itemSubject)
 
         let _ = input.didScrollBottom
-            .filter { $0 == self.pageNo * 10 - 1}
+            .filter { $0 == self.pageNo * Page.ten - Page.one}
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.pageNo += 1
+                owner.pageNo += Page.one
                 owner.itemListUseCase.fetchItemList(owner.pageNo, owner.itemPerPage)
                     .subscribe(onNext: { item in
                         let preItem = owner.itemSubject.value
@@ -56,5 +56,10 @@ final class HomeViewModel {
             .disposed(by: disposeBag)
 
         return Output(itemList: itemList)
+    }
+
+    private enum Page {
+        static let one = 1
+        static let ten = 10
     }
 }

@@ -16,12 +16,12 @@ final class SearchViewController: UIViewController {
     private let viewModel: SearchViewModel
     private var disposeBag = DisposeBag()
     private let searchController: UISearchController = {
-           let searchController = UISearchController(searchResultsController: nil)
-           searchController.searchBar.placeholder = "상품 이름을 검색"
-           searchController.hidesNavigationBarDuringPresentation = false
-           searchController.searchBar.showsCancelButton = false
-           return searchController
-       }()
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = SearchBar.placeHolder
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.showsCancelButton = false
+        return searchController
+    }()
     private var tableView = UITableView()
     private var itemListDataSource = DataSource { _, tableView, indexPath, item in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier,
@@ -51,7 +51,7 @@ final class SearchViewController: UIViewController {
     }
 
     private func configureUI() {
-        let image = UIImage(named: "SecondHand")
+        let image = UIImage(named: Image.secondHand)
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
         self.view.backgroundColor = .white
@@ -63,7 +63,7 @@ final class SearchViewController: UIViewController {
         tableView.register(ItemTableViewCell.self,
                            forCellReuseIdentifier: ItemTableViewCell.identifier)
         self.view.addSubview(tableView)
-        tableView.rowHeight = 100
+        tableView.rowHeight = TableViewLayout.rowHeight
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -113,5 +113,13 @@ final class SearchViewController: UIViewController {
                                                                animated: true)
             })
             .disposed(by: disposeBag)
+    }
+
+    private enum TableViewLayout {
+        static let rowHeight: CGFloat = 100
+    }
+
+    private enum SearchBar {
+        static let placeHolder = "상품 이름으로 검색"
     }
 }

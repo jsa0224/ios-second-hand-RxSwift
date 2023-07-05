@@ -155,9 +155,14 @@ final class ItemTableViewCell: UITableViewCell {
         ])
 
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 16
+        contentView.layer.cornerRadius = ContentViewLayout.cornerRadius
         contentView.clipsToBounds = true
-        contentView.systemLayoutSizeFitting(.init(width: self.bounds.width, height: self.bounds.height))
+        contentView.systemLayoutSizeFitting(.init(width: self.bounds.width,
+                                                  height: self.bounds.height))
+    }
+
+    private enum ContentViewLayout {
+        static let cornerRadius: CGFloat = 16
     }
 }
 

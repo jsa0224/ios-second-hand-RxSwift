@@ -45,7 +45,7 @@ final class FavoriteViewController: UIViewController {
     }
 
     private func configureUI() {
-        let image = UIImage(named: "SecondHand")
+        let image = UIImage(named: Image.secondHand)
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
         self.view.backgroundColor = .white
@@ -54,7 +54,7 @@ final class FavoriteViewController: UIViewController {
         tableView.register(ItemTableViewCell.self,
                            forCellReuseIdentifier: ItemTableViewCell.identifier)
         self.view.addSubview(tableView)
-        tableView.rowHeight = 100
+        tableView.rowHeight = TableViewLayout.rowHeight
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -123,7 +123,11 @@ final class FavoriteViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    private enum Namespace {
+    private enum TableViewLayout {
+        static let rowHeight: CGFloat = 100
+    }
+
+    private enum AlertText {
         static let cancelActionTitle = "취소"
         static let deleteActionTitle = "삭제"
         static let alertTitle = "해당 상품을 장바구니에서 삭제하시겠습니까?"
@@ -133,13 +137,13 @@ final class FavoriteViewController: UIViewController {
 extension FavoriteViewController {
     func showDeleteAlert() -> Observable<AlertActionType> {
         return Observable.create { [weak self] emitter in
-            let cancelAction = UIAlertAction(title: Namespace.cancelActionTitle,
+            let cancelAction = UIAlertAction(title: AlertText.cancelActionTitle,
                                              style: .cancel) { _ in
                 emitter.onNext(.cancel)
                 emitter.onCompleted()
             }
 
-            let deleteAction = UIAlertAction(title: Namespace.deleteActionTitle,
+            let deleteAction = UIAlertAction(title: AlertText.deleteActionTitle,
                                              style: .destructive) { _ in
                 emitter.onNext(.delete)
                 emitter.onCompleted()
@@ -147,7 +151,7 @@ extension FavoriteViewController {
 
             let alert = AlertManager.shared
                 .setType(.alert)
-                .setTitle(Namespace.alertTitle)
+                .setTitle(AlertText.alertTitle)
                 .setMessage(nil)
                 .setActions([cancelAction, deleteAction])
                 .apply()

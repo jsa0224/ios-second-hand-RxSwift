@@ -36,13 +36,13 @@ final class DetailViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                            constant: 8),
+                                            constant: DetailViewLayout.topAnchor),
             detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                                                constant: 8),
+                                                constant: DetailViewLayout.leadingAnchor),
             detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                                                 constant: -8),
+                                                 constant: DetailViewLayout.trailingAnchor),
             detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                               constant: -8)
+                                               constant: DetailViewLayout.bottomAnchor)
         ])
     }
 
@@ -51,16 +51,16 @@ final class DetailViewController: UIViewController {
         let didTapAddCartButton = detailView.cartButton.rx.tap
             .withUnretained(self)
             .map { owner, _ in
-                return (owner.viewModel.item.id,
-                        owner.viewModel.item.name,
-                        owner.viewModel.item.description,
-                        owner.viewModel.item.thumbnail,
-                        owner.viewModel.item.price,
-                        owner.viewModel.item.bargainPrice,
-                        owner.viewModel.item.discountedPrice,
-                        owner.viewModel.item.stock,
-                        owner.viewModel.item.favorites,
-                        true)
+                return (id: owner.viewModel.item.id,
+                        name: owner.viewModel.item.name,
+                        description: owner.viewModel.item.description,
+                        thumbnail: owner.viewModel.item.thumbnail,
+                        price: owner.viewModel.item.price,
+                        bargainPrice: owner.viewModel.item.bargainPrice,
+                        discountedPrice: owner.viewModel.item.discountedPrice,
+                        stock: owner.viewModel.item.stock,
+                        favorite: owner.viewModel.item.favorites,
+                        isAddCart: true)
             }
 
         let didShowFavoriteButton = Observable.just(viewModel.item.id)
@@ -68,16 +68,16 @@ final class DetailViewController: UIViewController {
         let didTapFavoriteButton = detailView.favoriteButton.rx.tap
             .withUnretained(self)
             .map { owner, _ in
-                return (owner.viewModel.item.id,
-                        owner.viewModel.item.name,
-                        owner.viewModel.item.description,
-                        owner.viewModel.item.thumbnail,
-                        owner.viewModel.item.price,
-                        owner.viewModel.item.bargainPrice,
-                        owner.viewModel.item.discountedPrice,
-                        owner.viewModel.item.stock,
-                        true,
-                        owner.viewModel.item.isAddCart)
+                return (id: owner.viewModel.item.id,
+                        name: owner.viewModel.item.name,
+                        description: owner.viewModel.item.description,
+                        thumbnail: owner.viewModel.item.thumbnail,
+                        price: owner.viewModel.item.price,
+                        bargainPrice: owner.viewModel.item.bargainPrice,
+                        discountedPrice: owner.viewModel.item.discountedPrice,
+                        stock: owner.viewModel.item.stock,
+                        favorite: true,
+                        isAddCart: owner.viewModel.item.isAddCart)
             }
 
         let input = DetailViewModel.Input(didShowView: didShowView,
@@ -100,7 +100,7 @@ final class DetailViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.configureAlert(message: "장바구니")
+                owner.configureAlert(message: Text.cartItem)
                 owner.tabBarController?.selectedIndex = 2
             })
             .disposed(by: disposeBag)
@@ -117,21 +117,35 @@ final class DetailViewController: UIViewController {
             .withUnretained(self)
             .bind(onNext: { owner, bool in
                 owner.detailView.favoriteButton.isSelected = true
-                owner.configureAlert(message: "관심상품")
+                owner.configureAlert(message: Text.favoriteItem)
                 owner.tabBarController?.selectedIndex = 1
             })
             .disposed(by: disposeBag)
+    }
+
+    private enum DetailViewLayout {
+        static let topAnchor: CGFloat = 8
+        static let leadingAnchor: CGFloat = 8
+        static let trailingAnchor: CGFloat = -8
+        static let bottomAnchor: CGFloat = -8
+    }
+
+    private enum Text {
+        static let cartItem = "장바구니"
+        static let favoriteItem = "관심상품"
+        static let confirm = "확인"
+        static let registerAlertMessage = "에 등록되었습니다."
     }
 }
 
 extension DetailViewController {
     func configureAlert(message: String) {
-        let confirmAction = UIAlertAction(title: "확인",
+        let confirmAction = UIAlertAction(title: Text.confirm,
                                           style: .default)
 
         let alert = AlertManager.shared
             .setType(.alert)
-            .setTitle(message + "에 등록되었습니다.")
+            .setTitle(message + Text.registerAlertMessage)
             .setActions([confirmAction])
             .apply()
         self.present(alert, animated: true)

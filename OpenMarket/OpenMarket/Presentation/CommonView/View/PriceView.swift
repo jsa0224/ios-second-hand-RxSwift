@@ -12,7 +12,7 @@ final class PriceView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -21,7 +21,7 @@ final class PriceView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -30,7 +30,7 @@ final class PriceView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -39,7 +39,7 @@ final class PriceView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -67,7 +67,7 @@ final class PriceView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textAlignment = .left
-        label.textColor = UIColor(named: "selectedColor")
+        label.textColor = UIColor(named: Color.selected)
         return label
     }()
 
@@ -94,7 +94,7 @@ final class PriceView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .right
-        label.textColor = UIColor(named: "selectedColor")
+        label.textColor = UIColor(named: Color.selected)
         return label
     }()
 
@@ -128,7 +128,13 @@ final class PriceView: UIView {
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStackView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4)
+            mainStackView.heightAnchor.constraint(equalTo: widthAnchor,
+                                                  multiplier: Layout.multiplier)
         ])
+    }
+
+    private enum Layout {
+        static let spacing: CGFloat = 4
+        static let multiplier: CGFloat = 0.4
     }
 }

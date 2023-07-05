@@ -12,7 +12,7 @@ final class ListView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = MainStackViewLayout.spacing
         stackView.distribution = .fill
         return stackView
     }()
@@ -28,7 +28,7 @@ final class ListView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -37,7 +37,7 @@ final class ListView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = Layout.spacing
         stackView.distribution = .fill
         return stackView
     }()
@@ -45,7 +45,7 @@ final class ListView: UIView {
     private(set) var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.numberOfLines = 2
+        label.numberOfLines = Layout.numberOfLines
         return label
     }()
 
@@ -98,14 +98,27 @@ final class ListView: UIView {
 
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: topAnchor,
-                                               constant: 8),
+                                               constant: MainStackViewLayout.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                               constant: 4),
+                                                   constant: MainStackViewLayout.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                               constant: -8),
+                                                    constant: MainStackViewLayout.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                  constant: -8),
+                                                  constant: MainStackViewLayout.bottomAnchor),
             itemImageView.widthAnchor.constraint(equalTo: heightAnchor)
            ])
+    }
+
+    private enum Layout {
+        static let spacing: CGFloat = 4
+        static let numberOfLines: Int = 2
+    }
+
+    private enum MainStackViewLayout {
+        static let spacing: CGFloat = 8
+        static let topAnchor: CGFloat = 8
+        static let leadingAnchor: CGFloat = 4
+        static let trailingAnchor: CGFloat = -8
+        static let bottomAnchor: CGFloat = -8
     }
 }

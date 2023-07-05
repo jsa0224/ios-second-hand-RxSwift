@@ -46,7 +46,7 @@ final class CartViewController: UIViewController {
     }
 
     private func configureUI() {
-        let image = UIImage(named: "SecondHand")
+        let image = UIImage(named: Image.secondHand)
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
         self.view.backgroundColor = .white
@@ -57,19 +57,20 @@ final class CartViewController: UIViewController {
         self.view.addSubview(tableView)
         self.view.addSubview(priceView)
 
-        priceView.priceTextLabel.text = "Price:"
-        priceView.priceForSaleTextLabel.text = "Discounted Price:"
-        priceView.totalTextLabel.text = "Total Price:"
-        tableView.rowHeight = 100
+        priceView.priceTextLabel.text = Text.price
+        priceView.priceForSaleTextLabel.text = Text.discountedPrice
+        priceView.totalTextLabel.text = Text.totalPrice
+        tableView.rowHeight = TableViewLayout.rowHeight
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            priceView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
-            priceView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            priceView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            priceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            priceView.topAnchor.constraint(equalTo: tableView.bottomAnchor,
+                                           constant: TableViewLayout.bottomAnchor),
+            priceView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: PriceViewLayout.leadingAnchor),
+            priceView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: PriceViewLayout.trailingAnchor),
+            priceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: PriceViewLayout.bottomAnchor)
         ])
     }
 
@@ -89,11 +90,12 @@ final class CartViewController: UIViewController {
                 sectionArray[indexPath.section] = section
                 return item
             }
-        let deleteAndDeletedItem = Observable.zip(deleteAction, deletedItem)
+        let deleteAndDeletedItem = Observable.zip(deleteAction,
+                                                  deletedItem)
         let deletedAlertAction = tableView.rx.itemDeleted
             .withUnretained(self)
             .map { owner, indexPath in
-               return indexPath
+                return indexPath
             }
 
         let input = CartViewModel.Input(didShowView: didShowView,
@@ -124,7 +126,7 @@ final class CartViewController: UIViewController {
                 .reduce(0.0, +)
             }
             .map { price in
-                price.formatDouble + "원"
+                price.formatDouble + Description.monetaryUnit
             }
             .bind(to: priceView.priceLabel.rx.text)
             .disposed(by: disposeBag)
@@ -135,10 +137,10 @@ final class CartViewController: UIViewController {
                 item.compactMap {
                     $0.discountedPrice
                 }
-                .reduce(0.0, +)
+                .reduce(Mathematical.zero, +)
             }
             .map { price in
-                "-" + price.formatDouble + "원"
+                Mathematical.negativeSign + price.formatDouble + Description.monetaryUnit
             }
             .bind(to: priceView.priceForSaleLabel.rx.text)
             .disposed(by: disposeBag)
@@ -149,10 +151,10 @@ final class CartViewController: UIViewController {
                 item.compactMap {
                     $0.bargainPrice
                 }
-                .reduce(0.0, +)
+                .reduce(Mathematical.zero, +)
             }
             .map { price in
-                price.formatDouble + "원"
+                price.formatDouble + Description.monetaryUnit
             }
             .bind(to: priceView.totalPriceLabel.rx.text)
             .disposed(by: disposeBag)
@@ -174,9 +176,29 @@ final class CartViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    private enum Namespace {
-        static let deleteImage = "trash.circle"
-        static let modifyImage = "arrow.backward"
+    private enum Text {
+        static let price = "Price: "
+        static let discountedPrice = "Discounted Price:"
+        static let totalPrice = "Total Price:"
+    }
+
+    private enum TableViewLayout {
+        static let rowHeight: CGFloat = 100
+        static let bottomAnchor: CGFloat = 16
+    }
+
+    private enum PriceViewLayout {
+        static let leadingAnchor: CGFloat = 16
+        static let trailingAnchor: CGFloat = -16
+        static let bottomAnchor: CGFloat = -16
+    }
+
+    private enum Mathematical {
+        static let zero = 0.0
+        static let negativeSign = "-"
+    }
+
+    private enum AlertText {
         static let cancelActionTitle = "취소"
         static let deleteActionTitle = "삭제"
         static let alertTitle = "해당 상품을 장바구니에서 삭제하시겠습니까?"
@@ -186,13 +208,13 @@ final class CartViewController: UIViewController {
 extension CartViewController {
     func showDeleteAlert() -> Observable<AlertActionType> {
         return Observable.create { [weak self] emitter in
-            let cancelAction = UIAlertAction(title: Namespace.cancelActionTitle,
+            let cancelAction = UIAlertAction(title: AlertText.cancelActionTitle,
                                              style: .cancel) { _ in
                 emitter.onNext(.cancel)
                 emitter.onCompleted()
             }
 
-            let deleteAction = UIAlertAction(title: Namespace.deleteActionTitle,
+            let deleteAction = UIAlertAction(title: AlertText.deleteActionTitle,
                                              style: .destructive) { _ in
                 emitter.onNext(.delete)
                 emitter.onCompleted()
@@ -200,7 +222,7 @@ extension CartViewController {
 
             let alert = AlertManager.shared
                 .setType(.alert)
-                .setTitle(Namespace.alertTitle)
+                .setTitle(AlertText.alertTitle)
                 .setMessage(nil)
                 .setActions([cancelAction, deleteAction])
                 .apply()

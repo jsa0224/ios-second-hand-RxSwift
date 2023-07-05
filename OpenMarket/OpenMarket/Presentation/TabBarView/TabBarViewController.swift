@@ -16,8 +16,8 @@ class TabBarViewController: UITabBarController {
 
     private func configureTabBar() {
         tabBar.backgroundColor = .white
-        tabBar.tintColor = UIColor(named: "selectedColor")
-        tabBar.unselectedItemTintColor = UIColor(named: "mainColor")
+        tabBar.tintColor = UIColor(named: Color.selected)
+        tabBar.unselectedItemTintColor = UIColor(named: Color.main)
 
         let networkManager = ItemNetworkManager()
         let coreDataManager = CoreDataManager.shared
@@ -49,17 +49,17 @@ class TabBarViewController: UITabBarController {
         let homeImage = UIImage(systemName: Namespace.homeImage)
         let homeTabBarItem = UITabBarItem(title: Namespace.homeTitle,
                                           image: homeImage,
-                                          tag: 0)
+                                          tag: Tag.home)
 
         let heartImage = UIImage(systemName: Namespace.heartImage)
         let favoriteTabBarItem = UITabBarItem(title: Namespace.favoriteTitle,
-                                          image: heartImage,
-                                          tag: 1)
+                                              image: heartImage,
+                                              tag: Tag.favorite)
 
         let cartImage = UIImage(systemName: Namespace.cartImage)
         let cartTabBarItem = UITabBarItem(title: Namespace.cartTitle,
                                           image: cartImage,
-                                          tag: 2)
+                                          tag: Tag.cart)
 
         homeNavigationController.tabBarItem = homeTabBarItem
         favoriteNavigationController.tabBarItem = favoriteTabBarItem
@@ -73,5 +73,11 @@ class TabBarViewController: UITabBarController {
         static let cartTitle = "cart"
         static let heartImage = "heart.fill"
         static let favoriteTitle = "favorite"
+    }
+
+    private enum Tag {
+        static let home = 0
+        static let favorite = 1
+        static let cart = 2
     }
 }
