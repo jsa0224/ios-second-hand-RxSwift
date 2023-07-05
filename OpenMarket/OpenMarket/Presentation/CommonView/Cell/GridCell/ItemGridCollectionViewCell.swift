@@ -41,7 +41,7 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
         itemView.priceLabel.text = nil
         itemView.priceForSaleLabel.text = nil
         let heartImage = UIImage(systemName: "heart")
-        itemView.heartButton.setImage(heartImage, for: .normal)
+        itemView.favoriteButton.setImage(heartImage, for: .normal)
         loadingView.startAnimating()
         loadingView.isHidden = false
         
@@ -60,7 +60,7 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
 
         let didShowCell: Observable<Item> = Observable.just(item)
         let didShowFavoriteButton = Observable.just(item.id)
-        let didTapFavoriteButton = itemView.heartButton.rx.tap
+        let didTapFavoriteButton = itemView.favoriteButton.rx.tap
             .withUnretained(self)
             .flatMap { owner, _ in
                 return didShowCell.map { item in
@@ -142,7 +142,7 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
         output?
             .isSelected
             .observe(on: MainScheduler.instance)
-            .bind(to: itemView.heartButton.rx.isSelected)
+            .bind(to: itemView.favoriteButton.rx.isSelected)
             .disposed(by: disposeBag)
 
         output?
@@ -150,7 +150,7 @@ final class ItemGridCollectionViewCell: UICollectionViewCell {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, bool in
-                owner.itemView.heartButton.isSelected = true
+                owner.itemView.favoriteButton.isSelected = true
             })
             .disposed(by: disposeBag)
 

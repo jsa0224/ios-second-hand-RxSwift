@@ -65,7 +65,7 @@ class DetailView: UIView {
         return label
     }()
 
-    private(set) var heartButton: UIButton = {
+    private(set) var favoriteButton: UIButton = {
         let button = UIButton()
         let heartImage = UIImage(systemName: "heart")
         let heartFillImage = UIImage(systemName: "heart.fill")
@@ -144,7 +144,7 @@ class DetailView: UIView {
         textStackView.addArrangedSubview(stockLabel)
         textStackView.addArrangedSubview(descriptionTextView)
         middleStackView.addArrangedSubview(priceStackView)
-        middleStackView.addArrangedSubview(heartButton)
+        middleStackView.addArrangedSubview(favoriteButton)
         priceStackView.addArrangedSubview(priceLabel)
         priceStackView.addArrangedSubview(priceForSaleLabel)
 

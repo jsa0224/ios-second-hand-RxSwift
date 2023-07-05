@@ -63,7 +63,7 @@ final class GridView: UIView {
         return label
     }()
 
-    private(set) var heartButton: UIButton = {
+    private(set) var favoriteButton: UIButton = {
         let button = UIButton()
         let heartImage = UIImage(systemName: "heart")
         let heartFillImage = UIImage(systemName: "heart.fill")
@@ -90,7 +90,7 @@ final class GridView: UIView {
         textStackView.addArrangedSubview(nameLabel)
         textStackView.addArrangedSubview(middleStackView)
         middleStackView.addArrangedSubview(priceStackView)
-        middleStackView.addArrangedSubview(heartButton)
+        middleStackView.addArrangedSubview(favoriteButton)
         priceStackView.addArrangedSubview(priceLabel)
         priceStackView.addArrangedSubview(priceForSaleLabel)
 

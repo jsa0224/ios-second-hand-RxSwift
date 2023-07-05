@@ -65,7 +65,7 @@ final class DetailViewController: UIViewController {
 
         let didShowFavoriteButton = Observable.just(viewModel.item.id)
 
-        let didTapFavoriteButton = detailView.heartButton.rx.tap
+        let didTapFavoriteButton = detailView.favoriteButton.rx.tap
             .withUnretained(self)
             .map { owner, _ in
                 return (owner.viewModel.item.id,
@@ -108,7 +108,7 @@ final class DetailViewController: UIViewController {
         output
             .isSelected
             .observe(on: MainScheduler.instance)
-            .bind(to: detailView.heartButton.rx.isSelected)
+            .bind(to: detailView.favoriteButton.rx.isSelected)
             .disposed(by: disposeBag)
 
         output
@@ -116,7 +116,7 @@ final class DetailViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, bool in
-                owner.detailView.heartButton.isSelected = true
+                owner.detailView.favoriteButton.isSelected = true
                 owner.configureAlert(message: "관심상품")
                 owner.tabBarController?.selectedIndex = 1
             })
