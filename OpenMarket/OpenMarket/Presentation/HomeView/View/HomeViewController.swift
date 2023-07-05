@@ -26,6 +26,15 @@ final class HomeViewController: UIViewController {
 
         return cell
     }
+    private let blankButton: UIBarButtonItem = {
+        let searchImage = UIImage(systemName: "magnifyingglass.circle")
+        let barButtonItem = UIBarButtonItem(image: searchImage,
+                                            style: .plain,
+                                            target: nil,
+                                            action: nil)
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
     private let searchButton: UIBarButtonItem = {
         let searchImage = UIImage(systemName: "magnifyingglass.circle")
         let barButtonItem = UIBarButtonItem(image: searchImage,
@@ -59,6 +68,7 @@ final class HomeViewController: UIViewController {
         navigationItem.titleView = UIImageView(image: image)
         navigationItem.titleView?.contentMode = .scaleAspectFit
         navigationItem.rightBarButtonItem = searchButton
+        navigationItem.leftBarButtonItem = blankButton
         self.view.backgroundColor = .white
     }
 
