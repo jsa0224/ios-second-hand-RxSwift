@@ -67,7 +67,7 @@ final class PriceView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textAlignment = .left
-        label.textColor = UIColor(named: Color.selected)
+        label.textColor = .selected
         return label
     }()
 
@@ -94,7 +94,7 @@ final class PriceView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textAlignment = .right
-        label.textColor = UIColor(named: Color.selected)
+        label.textColor = .selected
         return label
     }()
 

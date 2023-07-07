@@ -14,6 +14,7 @@ final class HomeViewController: UIViewController {
     typealias DataSource = RxCollectionViewSectionedReloadDataSource<ItemSection>
     
     private let viewModel: HomeViewModel
+    private let coordinator: HomeCoordinator
     private var disposeBag = DisposeBag()
     private var collectionView: UICollectionView?
     private var itemListDataSource = DataSource { _, collectionView, indexPath, item in
@@ -41,12 +42,15 @@ final class HomeViewController: UIViewController {
                                             style: .plain,
                                             target: nil,
                                             action: nil)
-        barButtonItem.tintColor = UIColor(named: Color.selected)
+        barButtonItem.tintColor = .selected
         return barButtonItem
     }()
 
-    init(viewModel: HomeViewModel, disposeBag: DisposeBag = DisposeBag()) {
+    init(viewModel: HomeViewModel,
+         coordinator: HomeCoordinator,
+         disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         self.disposeBag = disposeBag
         super.init(nibName: nil, bundle: nil)
     }
@@ -99,19 +103,7 @@ final class HomeViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, item in
-                let networkManager = ItemNetworkManager()
-                let coreDataManager = CoreDataManager.shared
-                let itemRepository = ItemListRepository(networkManager: networkManager)
-                let itemDetailRepository = ItemRepository(coreDataManager: coreDataManager)
-                let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
-                let imageUseCase = ImageUseCase(imageRepository: itemRepository)
-                let detailViewModel = DetailViewModel(itemUseCase: itemUseCase,
-                                                      imageUseCase: imageUseCase,
-                                                      item: item)
-                let detailViewController = DetailViewController(viewModel: detailViewModel
-                )
-                owner.navigationController?.pushViewController(detailViewController,
-                                                               animated: true)
+                owner.coordinator.presentDetailView(with: item)
             })
             .disposed(by: disposeBag)
 
@@ -119,13 +111,7 @@ final class HomeViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind { owner, _ in
-                let networkManager = ItemNetworkManager()
-                let itemRepository = ItemListRepository(networkManager: networkManager)
-                let itemListUseCase = ItemListUseCase(itemListRepository: itemRepository)
-                let searchViewModel = SearchViewModel(itemListUseCase: itemListUseCase)
-                let searchViewController = SearchViewController(viewModel: searchViewModel)
-                owner.navigationController?.pushViewController(searchViewController,
-                                                               animated: true)
+                owner.coordinator.presentSearchView()
             }
             .disposed(by: disposeBag)
     }
@@ -183,7 +169,7 @@ extension HomeViewController {
         }
 
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = UIColor(named: Color.main)
+        collectionView.backgroundColor = .main
         self.view.addSubview(collectionView)
     }
 

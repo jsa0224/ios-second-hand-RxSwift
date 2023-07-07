@@ -14,6 +14,7 @@ final class SearchViewController: UIViewController {
     typealias DataSource = RxTableViewSectionedReloadDataSource<ItemSection>
 
     private let viewModel: SearchViewModel
+    private let coordinator: SearchCoordinator
     private var disposeBag = DisposeBag()
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -34,8 +35,11 @@ final class SearchViewController: UIViewController {
         return cell
     }
 
-    init(viewModel: SearchViewModel, disposeBag: DisposeBag = DisposeBag()) {
+    init(viewModel: SearchViewModel,
+         coordinator: SearchCoordinator,
+         disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         self.disposeBag = disposeBag
         super.init(nibName: nil, bundle: nil)
     }
@@ -98,19 +102,7 @@ final class SearchViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, item in
-                let networkManager = ItemNetworkManager()
-                let coreDataManager = CoreDataManager.shared
-                let itemRepository = ItemListRepository(networkManager: networkManager)
-                let itemDetailRepository = ItemRepository(coreDataManager: coreDataManager)
-                let itemUseCase = ItemUseCase(itemRepository: itemDetailRepository)
-                let imageUseCase = ImageUseCase(imageRepository: itemRepository)
-                let detailViewModel = DetailViewModel(itemUseCase: itemUseCase,
-                                                      imageUseCase: imageUseCase,
-                                                      item: item)
-                let detailViewController = DetailViewController(viewModel: detailViewModel
-                )
-                owner.navigationController?.pushViewController(detailViewController,
-                                                               animated: true)
+                owner.coordinator.presentDetailView(with: item)
             })
             .disposed(by: disposeBag)
     }

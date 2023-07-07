@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum Color {
-    static let main = "mainColor"
-    static let selected = "selectedColor"
-}
-
 enum Description {
     static let emptyString = ""
     static let monetaryUnit = "원"

@@ -14,6 +14,7 @@ final class FavoriteViewController: UIViewController {
     typealias DataSource = RxTableViewSectionedReloadDataSource<ItemSection>
 
     private let viewModel: FavoriteViewModel
+    private let coordinator: FavoriteCoordinator
     private var disposeBag = DisposeBag()
     private var tableView = UITableView()
     private var itemListDataSource = DataSource { _, tableView, indexPath, item in
@@ -28,8 +29,11 @@ final class FavoriteViewController: UIViewController {
     }
     private var tableViewItemSubject = BehaviorSubject<[ItemSection]>(value: [])
 
-    init(viewModel: FavoriteViewModel, disposeBag: DisposeBag = DisposeBag()) {
+    init(viewModel: FavoriteViewModel,
+         coordinator: FavoriteCoordinator,
+         disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         self.disposeBag = disposeBag
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,7 +73,7 @@ final class FavoriteViewController: UIViewController {
         let deleteAction = tableView.rx.itemDeleted
             .withUnretained(self)
             .flatMap { owner, indexPath in
-               self.showDeleteAlert()
+                owner.coordinator.showDeleteAlert()
             }
         let deletedItem = tableView.rx.itemDeleted
             .withUnretained(self)
@@ -125,42 +129,5 @@ final class FavoriteViewController: UIViewController {
 
     private enum TableViewLayout {
         static let rowHeight: CGFloat = 100
-    }
-
-    private enum AlertText {
-        static let cancelActionTitle = "취소"
-        static let deleteActionTitle = "삭제"
-        static let alertTitle = "해당 상품을 장바구니에서 삭제하시겠습니까?"
-    }
-}
-
-extension FavoriteViewController {
-    func showDeleteAlert() -> Observable<AlertActionType> {
-        return Observable.create { [weak self] emitter in
-            let cancelAction = UIAlertAction(title: AlertText.cancelActionTitle,
-                                             style: .cancel) { _ in
-                emitter.onNext(.cancel)
-                emitter.onCompleted()
-            }
-
-            let deleteAction = UIAlertAction(title: AlertText.deleteActionTitle,
-                                             style: .destructive) { _ in
-                emitter.onNext(.delete)
-                emitter.onCompleted()
-            }
-
-            let alert = AlertManager.shared
-                .setType(.alert)
-                .setTitle(AlertText.alertTitle)
-                .setMessage(nil)
-                .setActions([cancelAction, deleteAction])
-                .apply()
-
-            self?.navigationController?.present(alert, animated: true)
-
-            return Disposables.create {
-                alert.dismiss(animated: true)
-            }
-        }
     }
 }

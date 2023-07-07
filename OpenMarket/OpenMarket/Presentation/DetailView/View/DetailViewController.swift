@@ -11,11 +11,15 @@ import RxCocoa
 
 final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
+    private let coordinator: DetailCoordinator
     private let detailView = DetailView()
     private var disposeBag = DisposeBag()
 
-    init(viewModel: DetailViewModel, disposeBag: DisposeBag = DisposeBag()) {
+    init(viewModel: DetailViewModel,
+         coordinator: DetailCoordinator,
+         disposeBag: DisposeBag = DisposeBag()) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         self.disposeBag = disposeBag
         super.init(nibName: nil, bundle: nil)
     }
@@ -100,8 +104,8 @@ final class DetailViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.configureAlert(message: Text.cartItem)
-                owner.tabBarController?.selectedIndex = 2
+                owner.coordinator.configureAlert(message: Text.cartItem)
+                owner.coordinator.moveToCartView(by: owner)
             })
             .disposed(by: disposeBag)
 
@@ -115,10 +119,10 @@ final class DetailViewController: UIViewController {
             .tappedFavoriteButton
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind(onNext: { owner, bool in
+            .bind(onNext: { owner, _ in
                 owner.detailView.favoriteButton.isSelected = true
-                owner.configureAlert(message: Text.favoriteItem)
-                owner.tabBarController?.selectedIndex = 1
+                owner.coordinator.configureAlert(message: Text.favoriteItem)
+                owner.coordinator.moveToFavoriteView(by: owner)
             })
             .disposed(by: disposeBag)
     }
@@ -133,21 +137,5 @@ final class DetailViewController: UIViewController {
     private enum Text {
         static let cartItem = "장바구니"
         static let favoriteItem = "관심상품"
-        static let confirm = "확인"
-        static let registerAlertMessage = "에 등록되었습니다."
-    }
-}
-
-extension DetailViewController {
-    func configureAlert(message: String) {
-        let confirmAction = UIAlertAction(title: Text.confirm,
-                                          style: .default)
-
-        let alert = AlertManager.shared
-            .setType(.alert)
-            .setTitle(message + Text.registerAlertMessage)
-            .setActions([confirmAction])
-            .apply()
-        self.present(alert, animated: true)
     }
 }
